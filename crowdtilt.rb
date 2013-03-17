@@ -18,7 +18,7 @@ class Crowdtilt
   end
   
   # create a user for an email, check if it exists
-  def create_user(email, first_name, last_name)    
+  def create_user(email, first_name, last_name)   
     #query for users
     users = self.class.get("/users", @options)["users"]
     #search for user by email
@@ -40,5 +40,33 @@ class Crowdtilt
       }.to_json
     })
     self.class.post("/users", options)
+  end
+  
+  def create_card(user_id, number, month, year, code)
+    binding.pry 
+    #query for cards
+    url = "/users/"+user_id+"/cards"
+    cards = self.class.get(url, @options)["cards"]
+    #check for empty cards
+    card = cards.find { |e| e['last_four'] == (number[-4..-1] || number)}
+    if card
+      #cards found return first one
+      return card
+    end
+    
+    #no card found, create one
+    options = @options
+    options.merge!({ 
+      :body => { 
+          :card => {
+            :expiration_year => year, 
+            :expiration_month => month,
+            :security_code => code, 
+            :number => number 
+          }
+      }.to_json
+    })
+    response = self.class.post(url, options)
+    response["card"] || response
   end
 end

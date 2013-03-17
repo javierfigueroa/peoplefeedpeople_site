@@ -1,13 +1,37 @@
 var Crowdtilt = (function(){
 	function Manager() {
 		return {
+		    //holds the campaign that was fetched last
 		    campaign: {},
+		    //holds the paying user
+		    user: {},
+		    //
 		    getCampaign: function (people, callback) {
 		        //get users campaigns
 		        $.getJSON('campaigns/'+people, function(data) {
 		            this.campaign = data;
 		            callback(this.campaign);
 	            });
+				return this;
+		    },
+		    setUser: function (email, firstName, lastName, callback) {
+		        //get users campaigns
+		        $.ajax({
+                    type: "POST",
+                    url: 'user',
+                    data: JSON.stringify({
+                        user: { 
+                            email: email,
+                            first_name: firstName,
+                            last_name: lastName
+                        }
+                    }),
+                    success: function(data) {
+                        this.user = data;
+                        callback(this.user);
+                    },
+                    dataType: "json"
+                }); 
 				return this;
 		    }
 		};

@@ -11,6 +11,7 @@ get '/' do
   redirect '/index.html'
 end
 
+#get campaigns from 1-6
 get '/campaigns/:people' do
   content_type :json
   crowdtilt = Crowdtilt.new
@@ -19,9 +20,20 @@ get '/campaigns/:people' do
   return campaign.to_json
 end
 
+#create user, return existing user if found
 post '/user' do
-  request.body.rewind  # in case someone already read it
+  content_type :json
+  request.body.rewind
   data = JSON.parse request.body.read
   crowdtilt = Crowdtilt.new
-  user = crowdtilt.create_user(data["user"]["email"], data["user"]["first_name"], data["user"]["last_name"])
+  crowdtilt.create_user(data["user"]["email"], data["user"]["first_name"], data["user"]["last_name"]).to_json
+end
+
+#create credit card, return existing card if found
+post '/user/:id/card' do
+  content_type :json
+  request.body.rewind
+  data = JSON.parse request.body.read
+  crowdtilt = Crowdtilt.new
+  crowdtilt.create_card(params["id"], data["number"], data["month"], data["year"], data["code"]).to_json
 end
