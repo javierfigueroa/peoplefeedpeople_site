@@ -1,14 +1,175 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
 
+<!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>untitled</title>
-	<meta name="generator" content="TextMate http://macromates.com/">
-	<meta name="author" content="Andrew Dashin">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <title>Food Donation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Food Donation">
+    <meta name="author" content="Javier Figueroa">
 
-</body>
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
+    <!--[if IE 7]>
+    <link type="text/css" href="css/custom-theme/jquery.ui.1.10.0.ie.css" rel="stylesheet" />
+    <![endif]-->
+    <link href="css/app.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+      <div class="navbar navbar-inverse navbar-fixed-top">
+           <div class="navbar-inner">
+             <div class="container">
+               <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+               </button>
+               <a class="brand" href="#">People Feed People</a>
+               <div class="nav-collapse collapse">
+                 <ul class="nav">
+                   <li class="active"><a href="#">Home</a></li>
+                   <li><a href="#about">About</a></li>
+                 </ul>
+               </div><!--/.nav-collapse -->
+             </div>
+           </div>
+         </div>
+
+         <div class="container">
+
+           <!-- Main hero unit for a primary marketing message or call to action -->
+           <div class="hero-unit">
+             <h1>People Feed People > Hunger</h1>
+             <p>Thanks for getting here. We know you have a great heart and worry about others. Below you'll find a way to help them avoid hunger. Choose a number of people and your donations will be used to buy the listed goods and ship them to the sponsored food non-profits.</p>
+             <p><a href="#" class="btn btn-primary btn-large">Go! &raquo;</a></p>
+           </div>
+             <div class="row">
+               <div class="span2">
+                   <h2><span class="amount">2</span> People</h2>
+               </div>
+               <div class="span2">
+                   <h2><span class="amount">3</span> People</h2>
+               </div>
+               <div class="span2">
+                   <h2><span class="amount">4</span> People</h2>
+               </div>
+               <div class="span2">
+                   <h2><span class="amount">6</span> People</h2>
+               </div>
+               <div class="span2">
+                   <h2><span class="amount">8</span> People</h2>
+               </div>
+               <div class="span2">
+                   <h2><span class="amount">14</span> People</h2>
+               </div>
+           </div>
+           <div class="row">
+               <div class="span12 offset1">
+                   <div id="slider"></div>
+               </div>
+           </div>
+           
+           <div class="row">
+              <div id="peoples" class="span4 offset4">
+                <img src="img/people-2.png" />
+              </div>
+           </div>
+           <div class="row"><!-- currently raised -->
+               <div class="span4 offset4"> 
+                   <div class="row pad20l-row">
+                       <h3 style="text-align:center">Currently raised:</h3>
+                   </div>
+                   <div class="row pad20l-row">
+                       <div class="span1">
+                           <span id="raised-donation" class="badge badge-warning money">$0.0</span>
+                       </div>
+                       <div class="span1">
+                            <h2 style="padding-left: 40px">of</h2>
+                       </div>
+                       <div class="span1">
+                           <span id="total-donation" class="badge badge-success money">$0.0</span>
+                       </div>
+                    </div>
+                </div>
+           </div><!-- end currently raised --> 
+           <hr>
+           
+           <div id="donation-area" class="row pad30l-row">
+               <div class="span6"><!-- items area -->
+                    <h1>Donation contents</h1>
+                    <small>These items will be purchased automatically from amazon.com when the donation is complete.</small>
+                    <hr>
+                    <div class="row pad20l-row"><!-- grid -->
+                        <ul id="grid" class="thumbnails">
+                            
+                        </ul>
+                    </div>
+               </div> <!-- end items area -->
+               
+               <div id="donation-form" class="span4 offset1" style="margin-top:80px"><!-- funding area -->                 
+                    <div class="row"> <!-- donate partial amount -->
+                        <div class="span4"> 
+                           <div class="row">
+                               <h3>Donate a partial amount:</h3>
+                           </div>
+                           <div class="row">
+                               <form class="form-horizontal well" style="margin: 6px 6px 0px; padding: 10px;">
+                                   <fieldset>
+                                       <div class="control-group" style="margin-bottom:0px">
+                                           <label class="control-label dollar-sign" for="partial-donation">$</label>
+                                           <div class="controls" style="margin-left:30px;">
+                                                <input type="text" class="input-medium" id="partial-donation">
+                                                <a href="#" class="btn btn-primary donation-button">Go! &raquo;</a>
+                                                <p class="help-block">This will be added to the total cost.</p>
+                                           </div>
+                                       </div>
+                                   </fieldset>
+                               </form>
+                            </div>
+                        </div>
+                    </div> <!-- end donation partial amount -->
+                    <div class="row"> <!-- donate rest -->
+                        <div class="span4"> 
+                           <div class="row">
+                               <h3>Donate the rest!</h3>
+                           </div>
+                           <div class="row">
+                               <div class="span4">
+                                   <span id="remainder-donation" class="badge badge-important money-rest">$0.0</span>
+                                   <a href="#" class="btn btn-primary donation-button" style="margin-top:10px;">Go! &raquo;</a>
+                               </div>
+                           </div>
+                        </div>
+                    </div><!-- end donate rest -->
+               </div><!-- end funding area -->
+           </div>
+
+           <hr>
+
+           <footer>
+             <p>&copy; Company 2013</p>
+           </footer>
+
+         </div> <!-- /container -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <script src="js/jquery.js"></script> 
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/mustache.js"></script>
+    <script src="js/jquery.mustache.js"></script>
+    <script src="js/jquery-scrolltofixed-min.js"></script>
+    <script src="js/crowdtilt.js"></script>
+    <script src="js/app.js"></script>
+     
+  </body>
 </html>

@@ -1,0 +1,21 @@
+{
+   "user":{
+      "firstname":null,
+      "paid_campaigns_uri":"/v1/users/USR78057B42890C11E2BC85BDD7562F032E/paid_campaigns",
+      "banks_uri":"/v1/users/USR78057B42890C11E2BC85BDD7562F032E/banks",
+      "email":"figueroa7@gmail.com",
+      "metadata":{
+
+      },
+      "id":"USR78057B42890C11E2BC85BDD7562F032E",
+      "uri":"/v1/users/USR78057B42890C11E2BC85BDD7562F032E",
+      "creation_date":"2013-03-09T22:55:42.080264000Z",
+      "campaigns_uri":"/v1/users/USR78057B42890C11E2BC85BDD7562F032E/campaigns",
+      "lastname":null,
+      "payments_uri":"/v1/users/USR78057B42890C11E2BC85BDD7562F032E/payments",
+      "is_verified":0,
+      "modification_date":"2013-03-09T22:55:42.080264000Z",
+      "cards_uri":"/v1/users/USR78057B42890C11E2BC85BDD7562F032E/cards"
+   },
+   "request_id":"REQ77FE47E6890C11E2970FAE958622F2C8"
+}
