@@ -1,7 +1,3 @@
-<script id="people" type="text/html">
-    <img src="{{image}}" />
-</script>
-
 <script id="grid-item" type="text/html">
 <li class="span2">
     <div class="thumbnail">
@@ -12,4 +8,56 @@
         <span class="badge badge-info times">{{times}}</span>
     </div>
 </li>
+</script>
+<script id="donation-wizard" type="text/html">
+<div id="rootwizard">
+	<ul>
+	  	<li><a href="#tab1" data-toggle="tab">First</a></li>
+		<li><a href="#tab2" data-toggle="tab">Second</a></li>
+		<li><a href="#tab3" data-toggle="tab">Third</a></li>
+		<li><a href="#tab4" data-toggle="tab">Forth</a></li>
+		<li><a href="#tab5" data-toggle="tab">Fifth</a></li>
+		<li><a href="#tab6" data-toggle="tab">Sixth</a></li>
+		<li><a href="#tab7" data-toggle="tab">Seventh</a></li>
+	</ul>
+	<div class="tab-content">
+	    <div class="tab-pane" id="tab1">
+	      <form class="form-horizontal">
+              <div id="legend">
+                <legend class="">Your contact information</legend>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="first-name">First Name</label>
+                <div class="controls">
+                  <input type="text" id="first-name" placeholder="Joe">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="last-name">Last Name</label>
+                <div class="controls">
+                  <input type="text" id="last-name" placeholder="Smith">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="email">Email</label>
+                <div class="controls">
+                  <input type="text" id="email" placeholder="joe.smith@domain.com">
+                </div>
+              </div>
+            </form>
+	    </div>
+	    <div class="tab-pane" id="tab2">
+	      2
+	    </div>
+		<div class="tab-pane" id="tab3">
+			3
+	    </div>
+		<ul class="pager wizard">
+			<li class="previous first" style="display:none;"><a href="#">First</a></li>
+			<li class="previous"><a href="#">Previous</a></li>
+			<li class="next last" style="display:none;"><a href="#">Last</a></li>
+		  	<li class="next"><a href="#">Next</a></li>
+		</ul>
+	</div>	
+</div>
 </script>

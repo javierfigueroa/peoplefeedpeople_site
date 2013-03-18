@@ -16,7 +16,7 @@ get '/campaign/:id' do
   content_type :json
   crowdtilt = Crowdtilt.new
   campaigns = crowdtilt.campaigns("USR78057B42890C11E2BC85BDD7562F032E")["campaigns"]
-  campaign = campaigns.find { |e| e['metadata']['people'] == params["id"]}
+  campaign = campaigns.find { |e| e['metadata']['people'] == params["id"] && e["is_tilted"] == 0}
   return campaign.to_json
 end
 

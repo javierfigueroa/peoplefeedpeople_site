@@ -16,8 +16,7 @@ function main() {
     setupSlider();
     setGridContent();
     setCampaignContent(1);
-    //set donation form fixed
-    $('#donation-form').scrollToFixed({ marginTop: 50});
+    setWizard();
  }
  
  function setupSlider() {
@@ -34,7 +33,7 @@ function main() {
  
  function sliderMoved( event, ui ) {
     var value = ui.value;
-    $("#peoples").empty();
+    // $("#peoples").empty();
     switch (value) {
         case 2:
         setPeopleImage("#FF6C00", "3", "img/people-3.png", 1);
@@ -57,19 +56,31 @@ function main() {
     }
     
     $(".times").text("x" + value);
-    updateCampaignTilt(donation, value);
     setCampaignContent(value);
 }
 
 function setPeopleImage(color, people, image, times) {
     var sliderRange = $("#slider .ui-slider-range");
     sliderRange.css("background", color);
-    for (var i=0; i<times; i++) {
-        $('#peoples').mustache('people', {image: image});
+
+    $('#people-image').attr("src", image);
+    var altImage = $('#people-image-alt');
+    
+    if (times > 1 && altImage.length > 0) {
+        altImage.attr("src", image);
+    }else if(times > 1 && altImage.length == 0){
+        $('#peoples').append($("<img />", { 
+            id: "people-image-alt",
+            src: image
+        }));
+    }else{
+        altImage.remove();
     }
 }
  
 function setGridContent() {
+    //set donation form fixed
+    $('#donation-form').scrollToFixed({ marginTop: 50});
     $("#grid").empty();
     $.getJSON("json/products.json", function(response) {
         var items = products = response.products,
@@ -89,18 +100,19 @@ function setGridContent() {
             
             donation = sum += item.price;
         }
-        
-        updateCampaignTilt(sum, people);
     });
 }
 
-function updateCampaignTilt(total, people) {    
-    // $("#total-donation").text("$" + Math.ceil(total * people + shipping));
+function setWizard() {    
+    $('#wizard').mustache('donation-wizard');
+    $('#rootwizard').bootstrapWizard({
+        onNext: function(tab, navigation, index) {
+	}});
 }
 
 function setCampaignContent(selection) {
     crowdtilt.getCampaign(selection, function(campaign) {
-        var total = campaign.tilt_amount,
+        var total = campaign.tilt_amount / 100,
             raised = campaign.stats.raised_amount / 100,
             remainder = total - raised;
             
