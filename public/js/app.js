@@ -101,7 +101,7 @@ function updateCampaignTilt(total, people) {
 function setCampaignContent(selection) {
     crowdtilt.getCampaign(selection, function(campaign) {
         var total = campaign.tilt_amount,
-            raised = campaign.stats.raised_amount,
+            raised = campaign.stats.raised_amount / 100,
             remainder = total - raised;
             
         $("#total-donation").text("$" + total);

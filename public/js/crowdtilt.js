@@ -8,7 +8,7 @@ var Crowdtilt = (function(){
 		    //
 		    getCampaign: function (people, callback) {
 		        //get users campaigns
-		        $.getJSON('campaigns/'+people, function(data) {
+		        $.getJSON('campaign/'+people, function(data) {
 		            this.campaign = data;
 		            callback(this.campaign);
 	            });
@@ -20,11 +20,9 @@ var Crowdtilt = (function(){
                     type: "POST",
                     url: 'user',
                     data: JSON.stringify({
-                        user: { 
-                            email: email,
-                            first_name: firstName,
-                            last_name: lastName
-                        }
+                        email: email,
+                        first_name: firstName,
+                        last_name: lastName
                     }),
                     success: function(data) {
                         this.user = data;

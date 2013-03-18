@@ -5,7 +5,11 @@ class Crowdtilt
   base_uri 'https://api-sandbox.crowdtilt.com/v1/'
 
   def initialize()
-    @auth = {:username => "0bc4b80f7c1c7c14f9707222f2a59f", :password => "9a87139282b7337728200a753c3a8b3a916db8af"}
+    @auth = {
+      :username => "0bc4b80f7c1c7c14f9707222f2a59f", 
+      :password => "9a87139282b7337728200a753c3a8b3a916db8af"
+    }
+    
     @options = ({
       :basic_auth => @auth, 
       :headers => {"Content-Type" => "application/json"}
@@ -18,11 +22,11 @@ class Crowdtilt
   end
   
   # create a user for an email, check if it exists
-  def create_user(email, first_name, last_name)   
+  def create_user(data)   
     #query for users
     users = self.class.get("/users", @options)["users"]
     #search for user by email
-    user = users.find { |e| e['email'] == email.chomp}
+    user = users.find { |e| e['email'] == data["email"].chomp}
     if user
       #found user, let's use it
       return user
@@ -32,18 +36,14 @@ class Crowdtilt
     options = @options
     options.merge!({ 
       :body => { 
-          :user => {
-            :email => email, 
-            :firstname => first_name, 
-            :lastname => last_name 
-          }
+          :user => data
       }.to_json
     })
     self.class.post("/users", options)
   end
   
-  def create_card(user_id, number, month, year, code)
-    binding.pry 
+  # create a card for an email, check if it exists
+  def create_card(user_id, data)
     #query for cards
     url = "/users/"+user_id+"/cards"
     cards = self.class.get(url, @options)["cards"]
@@ -58,15 +58,22 @@ class Crowdtilt
     options = @options
     options.merge!({ 
       :body => { 
-          :card => {
-            :expiration_year => year, 
-            :expiration_month => month,
-            :security_code => code, 
-            :number => number 
-          }
+          :card => data
       }.to_json
     })
     response = self.class.post(url, options)
     response["card"] || response
+  end
+  
+  #create a payment for a campaign
+  def create_payment(campaign_id, data)
+    binding.pry
+    options = @options
+    options.merge!({ 
+      :body => { 
+          :payment => data
+      }.to_json
+    })
+    self.class.post("/campaigns/"+campaign_id+"/payments", options)
   end
 end
