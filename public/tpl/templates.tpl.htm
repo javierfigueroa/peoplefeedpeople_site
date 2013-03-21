@@ -12,42 +12,66 @@
 <script id="donation-wizard" type="text/html">
 <div id="rootwizard">
 	<ul>
-	  	<li><a href="#tab1" data-toggle="tab">First</a></li>
-		<li><a href="#tab2" data-toggle="tab">Second</a></li>
-		<li><a href="#tab3" data-toggle="tab">Third</a></li>
-		<li><a href="#tab4" data-toggle="tab">Forth</a></li>
-		<li><a href="#tab5" data-toggle="tab">Fifth</a></li>
-		<li><a href="#tab6" data-toggle="tab">Sixth</a></li>
-		<li><a href="#tab7" data-toggle="tab">Seventh</a></li>
+	  	<li><a href="#tab1" data-toggle="tab">Your Information</a></li>
+		<li><a href="#tab2" data-toggle="tab">Your Payment</a></li>
+		<li><a href="#tab3" data-toggle="tab">Confirmation</a></li>
 	</ul>
 	<div class="tab-content">
 	    <div class="tab-pane" id="tab1">
-	      <form class="form-horizontal">
+	      <form id="contact-form" class="form-horizontal">
               <div id="legend">
-                <legend class="">Your contact information</legend>
+                <legend class="">Just a little bit of your personal information</legend>
               </div>
               <div class="control-group">
                 <label class="control-label" for="first-name">First Name</label>
                 <div class="controls">
-                  <input type="text" id="first-name" placeholder="Joe">
+                  <input type="text" id="first-name" placeholder="Joe" name="first-name">
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label" for="last-name">Last Name</label>
                 <div class="controls">
-                  <input type="text" id="last-name" placeholder="Smith">
+                  <input type="text" id="last-name" placeholder="Smith" name="last-name">
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label" for="email">Email</label>
                 <div class="controls">
-                  <input type="text" id="email" placeholder="joe.smith@domain.com">
+                  <input type="text" id="email" placeholder="joe.smith@domain.com" name="email">
                 </div>
               </div>
             </form>
 	    </div>
 	    <div class="tab-pane" id="tab2">
-	      2
+	      <form id="cc-form" class="form-horizontal">
+              <div id="legend">
+                <legend class="">Please fill in your payment details</legend>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="cc-number">Credit Card Number</label>
+                <div class="controls">
+                  <input type="text" id="cc-number" placeholder="1111222233334444" name="cc-number">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="cc-month">Expiration Month</label>
+                <div class="controls">
+                  <input type="text" id="cc-month" placeholder="10" name="cc-month">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="cc-year">Expiration Year</label>
+                <div class="controls">
+                  <input type="text" id="cc-year" placeholder="2015" name="cc-year">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="cc-code">Security Code</label>
+                <div class="controls">
+                  <input type="text" id="cc-code" placeholder="345" name="cc-code">
+                </div>
+              </div>
+            </form>
 	    </div>
 		<div class="tab-pane" id="tab3">
 			3

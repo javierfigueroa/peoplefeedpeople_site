@@ -39,7 +39,7 @@ class Crowdtilt
           :user => data
       }.to_json
     })
-    self.class.post("/users", options)
+    self.class.post("/users", options)["user"]
   end
   
   # create a card for an email, check if it exists
@@ -48,7 +48,7 @@ class Crowdtilt
     url = "/users/"+user_id+"/cards"
     cards = self.class.get(url, @options)["cards"]
     #check for empty cards
-    card = cards.find { |e| e['last_four'] == (number[-4..-1] || number)}
+    card = cards.find { |e| e['last_four'] == (data["number"][-4..-1] || data["number"])}
     if card
       #cards found return first one
       return card
@@ -74,6 +74,7 @@ class Crowdtilt
           :payment => data
       }.to_json
     })
+    binding.pry
     self.class.post("/campaigns/"+campaign_id+"/payments", options)
   end
 end

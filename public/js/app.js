@@ -106,8 +106,124 @@ function setGridContent() {
 function setWizard() {    
     $('#wizard').mustache('donation-wizard');
     $('#rootwizard').bootstrapWizard({
+        tabClass: 'nav nav-pills',
+        onTabClick: function(tab, navigation, index) {
+    		return false;
+    	},
         onNext: function(tab, navigation, index) {
-	}});
+            switch(index) {
+                case 1: {
+				    // Make sure we entered the name
+    				var contactForm = $('#contact-form'),
+    				    valid = contactForm.valid();
+				    
+    				valid && contactForm.submit();
+    				return valid; 
+                }
+                case 2: {
+                    var ccForm = $('#cc-form'),
+    				    valid = ccForm.valid()
+    				    payment = crowdtilt.payment;
+
+				    valid && !payment && ccForm.submit();
+                    return payment;
+                }
+			}
+	    }
+	});
+	
+	//Validate contact information
+	$('#contact-form').validate({
+      rules: {
+        "first-name": {
+          minlength: 2,
+          required: true
+        },
+        "email": {
+          required: true,
+          email: true
+        },
+        "last-name": {
+          minlength: 2,
+          required: true
+        }
+      },
+      highlight: function(element) {
+        $(element).closest('.control-group').removeClass('success').addClass('error');
+      },
+      success: function(element) {
+        element
+        .text('OK!').addClass('help-inline')
+        .closest('.control-group').removeClass('error').addClass('success');
+      },
+      submitHandler: function(form) {
+        crowdtilt.setUser({
+            email: $("#email").val(),
+            firstname: $("#first-name").val(),
+            lastname: $("#last-name").val()
+        }, function(user) {
+            console.log(user);
+        });
+      }
+     });
+     
+     
+	//Validate payment information
+	$('#cc-form').validate({
+      rules: {
+        "cc-number": {
+          creditcard: true,
+          required: true
+        },
+        "cc-month": {
+          required: true,
+          digits: true,
+          min: 1,
+          max: 12
+        },
+        "cc-year": {
+          required: true,
+          min: 2013,
+          max: 2025,
+          digits: true
+        },
+        "cc-code": {
+            required: true,
+            min: 100,
+            max: 9999,
+            digits: true
+        }
+      },
+      highlight: function(element) {
+        $(element).closest('.control-group').removeClass('success').addClass('error');
+      },
+      success: function(element) {
+        element
+        .text('OK!').addClass('help-inline')
+        .closest('.control-group').removeClass('error').addClass('success');
+      },
+      submitHandler: function(form) {     
+        crowdtilt.setPayment(crowdtilt.user.id, {
+            number: $("#cc-number").val(),
+            expiration_month: $("#cc-month").val(),
+            expiration_year: $("#cc-year").val(),
+            security_code: $("#cc-code").val()
+        }).then(function(response) {
+            console.log(response);
+            if (response.error) {
+                var message = response.error + ", please try a different one"
+                $.bootstrapGrowl(message, {
+                    type: 'error',
+                    align: 'center',
+                    width: 'auto'
+                });
+            }else{
+                $('#rootwizard').data().bootstrapWizard.next();
+            }
+            
+        });
+      }
+     });
 }
 
 function setCampaignContent(selection) {

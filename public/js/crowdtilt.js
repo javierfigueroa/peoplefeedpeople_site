@@ -2,35 +2,49 @@ var Crowdtilt = (function(){
 	function Manager() {
 		return {
 		    //holds the campaign that was fetched last
-		    campaign: {},
+		    campaign: null,
 		    //holds the paying user
-		    user: {},
-		    //
+		    user: null,
+		    //holds payment object
+		    payment: null,
+		    
 		    getCampaign: function (people, callback) {
 		        //get users campaigns
-		        $.getJSON('campaign/'+people, function(data) {
+		        $.getJSON('campaign/'+people, $.proxy(function(data) {
 		            this.campaign = data;
 		            callback(this.campaign);
-	            });
+	            }, this));
 				return this;
 		    },
-		    setUser: function (email, firstName, lastName, callback) {
-		        //get users campaigns
+		    setUser: function (params, callback) {
+		        //get crowdtilt user
 		        $.ajax({
                     type: "POST",
                     url: 'user',
-                    data: JSON.stringify({
-                        email: email,
-                        first_name: firstName,
-                        last_name: lastName
-                    }),
-                    success: function(data) {
+                    data: JSON.stringify(params),
+                    success: $.proxy(function(data) {
                         this.user = data;
                         callback(this.user);
-                    },
+                    }, this),
                     dataType: "json"
                 }); 
 				return this;
+		    },
+		    setPayment: function(userId, params) {
+		        var deferred = new $.Deferred();
+		        //get crowdtilt payment for user
+		        $.ajax({
+                    type: "POST",
+                    url: 'user/'+userId+'/card',
+                    data: JSON.stringify(params),
+                    success: $.proxy(function(data) {
+                        !data.error && (this.payment = data);
+                        deferred.resolve(data);
+                    }, this),
+                    dataType: "json"
+                }); 
+                
+                return deferred.promise();
 		    }
 		};
 	};
