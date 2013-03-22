@@ -17,6 +17,12 @@ function main() {
     setGridContent();
     setCampaignContent(1);
     setWizard();
+    
+    //Attach donation button event
+    $(".donation-button").click(function() {
+        //save button id to wizard
+        $("#rootwizard").data("button", this.id);
+    });
  }
  
  function setupSlider() {
@@ -33,35 +39,37 @@ function main() {
  
  function sliderMoved( event, ui ) {
     var value = ui.value;
-    // $("#peoples").empty();
-    switch (value) {
-        case 2:
-        setPeopleImage("#FF6C00", "3", "img/people-3.png", 1);
-        break;
-        case 3:
-        setPeopleImage("#FF7F00", "4", "img/people-4.png", 1);
-        break;
-        case 4:
-        setPeopleImage("#FFB100", "6", "img/people-3.png", 2);
-        break;
-        case 5:
-        setPeopleImage("#FFCB00", "8", "img/people-4.png", 2);
-        break;
-        case 6:
-        setPeopleImage("#9FEE00", "14", "img/people-7.png", 2);
-        break;
-        default:
-        setPeopleImage("#FF0700", "2", "img/people-2.png", 1);
-        break;
-    }
-    
+    //set people image when slider moves
+    setPeopleImage(getPeopleMetadata(value));
+    //change the x value in products    
     $(".times").text("x" + value);
+    //change campaign monetary values
     setCampaignContent(value);
 }
 
-function setPeopleImage(color, people, image, times) {
-    var sliderRange = $("#slider .ui-slider-range");
-    sliderRange.css("background", color);
+function getPeopleMetadata(value) {
+    switch (value) {
+        case 2:
+        return { color: "#FF6C00", people: 3, image: "img/people-3.png", times: 1 };
+        case 3:
+        return { color: "#FF7F00", people: 4, image: "img/people-4.png", times: 1 };
+        case 4:
+        return { color: "#FFB100", people: 6, image: "img/people-3.png", times: 2 };
+        case 5:
+        return { color: "#FFCB00", people: 8, image: "img/people-4.png", times: 2 };
+        case 6:
+        return { color: "#9FEE00", people: 14, image: "img/people-7.png", times: 2 };
+        default:
+        return { color: "#FF0700", people: 2, image: "img/people-2.png", times: 1 };
+    }
+}
+
+function setPeopleImage(params) {
+    var sliderRange = $("#slider .ui-slider-range"),
+        image = params.image,
+        times = params.times;
+        
+    sliderRange.css("background", params.color);
 
     $('#people-image').attr("src", image);
     var altImage = $('#people-image-alt');
@@ -110,6 +118,23 @@ function setWizard() {
         onTabClick: function(tab, navigation, index) {
     		return false;
     	},
+    	onTabShow: function(tab, navigation, index) {
+    		var $total = navigation.find('li').length;
+    		var $current = index+1;
+    		var $percent = ($current/$total) * 100;
+    		$('#rootwizard').find('.bar').css({width:$percent+'%'});
+		
+    		// If it's the last tab then hide the last button and show the finish instead
+    		if($current >= $total) {
+    			$('#rootwizard').find('.pager .next').hide();
+    			$('#rootwizard').find('.pager .finish').show();
+    			$('#rootwizard').find('.pager .finish').removeClass('disabled');
+    		} else {
+    			$('#rootwizard').find('.pager .next').show();
+    			$('#rootwizard').find('.pager .finish').hide();
+    		}
+		
+    	},
         onNext: function(tab, navigation, index) {
             switch(index) {
                 case 1: {
@@ -122,11 +147,10 @@ function setWizard() {
                 }
                 case 2: {
                     var ccForm = $('#cc-form'),
-    				    valid = ccForm.valid()
-    				    payment = crowdtilt.payment;
+    				    valid = ccForm.valid();
 
-				    valid && !payment && ccForm.submit();
-                    return payment;
+				    valid && ccForm.submit();
+                    return valid;
                 }
 			}
 	    }
@@ -157,13 +181,11 @@ function setWizard() {
         .closest('.control-group').removeClass('error').addClass('success');
       },
       submitHandler: function(form) {
-        crowdtilt.setUser({
-            email: $("#email").val(),
-            firstname: $("#first-name").val(),
-            lastname: $("#last-name").val()
-        }, function(user) {
-            console.log(user);
-        });
+        crowdtilt.userData = {
+            email: form["email"].value,
+            firstname: form["first-name"].value,
+            lastname: form["last-name"].value
+        };
       }
      });
      
@@ -203,25 +225,24 @@ function setWizard() {
         .closest('.control-group').removeClass('error').addClass('success');
       },
       submitHandler: function(form) {     
-        crowdtilt.setPayment(crowdtilt.user.id, {
-            number: $("#cc-number").val(),
-            expiration_month: $("#cc-month").val(),
-            expiration_year: $("#cc-year").val(),
-            security_code: $("#cc-code").val()
-        }).then(function(response) {
-            console.log(response);
-            if (response.error) {
-                var message = response.error + ", please try a different one"
-                $.bootstrapGrowl(message, {
-                    type: 'error',
-                    align: 'center',
-                    width: 'auto'
-                });
-            }else{
-                $('#rootwizard').data().bootstrapWizard.next();
-            }
-            
-        });
+        crowdtilt.paymentData = {
+            number: form["cc-number"].value,
+            expiration_month: form["cc-month"].value,
+            expiration_year: form["cc-year"].value,
+            security_code: form["cc-code"].value
+        };
+        
+        var people = crowdtilt.campaign.metadata.people,
+            firstname = crowdtilt.userData.firstname,
+            cc = crowdtilt.paymentData.number
+            metadata = getPeopleMetadata(+people),
+            value = $("#rootwizard").data("button") === "partial-button" ?
+                        $("#partial-donation").val() : crowdtilt.campaignData.remainder;
+           
+        $("#conf-name").text(firstname);
+        $("#conf-people").text(metadata.people);
+        $("#conf-cc").text(cc.substring(cc.length - 4));
+        $("#conf-amount").text("$"+value);
       }
      });
 }
@@ -231,6 +252,12 @@ function setCampaignContent(selection) {
         var total = campaign.tilt_amount / 100,
             raised = campaign.stats.raised_amount / 100,
             remainder = total - raised;
+            
+        crowdtilt.campaignData = {
+            total: total,
+            raised: raised,
+            remainder: remainder
+        };
             
         $("#total-donation").text("$" + total);
         $("#raised-donation").text("$" + raised);

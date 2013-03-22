@@ -3,10 +3,13 @@ var Crowdtilt = (function(){
 		return {
 		    //holds the campaign that was fetched last
 		    campaign: null,
+		    campaignData: null,
 		    //holds the paying user
 		    user: null,
+		    userData: null,
 		    //holds payment object
 		    payment: null,
+		    paymentData: null,
 		    
 		    getCampaign: function (people, callback) {
 		        //get users campaigns

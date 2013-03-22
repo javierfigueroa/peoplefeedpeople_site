@@ -129,7 +129,7 @@
                                            <label class="control-label dollar-sign" for="partial-donation">$</label>
                                            <div class="controls" style="margin-left:30px;">
                                                 <input type="text" class="input-medium" id="partial-donation">
-                                                <a href="#" class="btn btn-primary donation-button">Go! &raquo;</a>
+                                                <a id="partial-button" href="#modal" role="button" data-toggle="modal" class="btn btn-primary donation-button">Go! &raquo;</a>
                                                 <p class="help-block">This will be added to the total cost.</p>
                                            </div>
                                        </div>
@@ -146,7 +146,7 @@
                            <div class="row">
                                <div class="span4">
                                    <span id="remainder-donation" class="badge badge-important money-rest">$0.0</span>
-                                   <a href="#myModal" role="button" data-toggle="modal" class="btn btn-primary donation-button" style="margin-top:10px;">Go! &raquo;</a>
+                                   <a id="full-button" href="#modal" role="button" data-toggle="modal" class="btn btn-primary donation-button" style="margin-top:10px;">Go! &raquo;</a>
                                </div>
                            </div>
                         </div>
@@ -161,7 +161,7 @@
            </footer>
          </div> <!-- /container -->
         <!-- Modal -->
-        <div id="myModal" class="modal hide fade" tabindex="-1" 
+        <div id="modal" class="modal hide fade" tabindex="-1" 
         role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
