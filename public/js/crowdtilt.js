@@ -8,46 +8,50 @@ var Crowdtilt = (function(){
 		    user: null,
 		    userData: null,
 		    //holds payment object
-		    payment: null,
-		    paymentData: null,
+		    cc: null,
+		    ccData: null,
 		    
-		    getCampaign: function (people, callback) {
+		    getCampaign: function (people) {
 		        //get users campaigns
-		        $.getJSON('campaign/'+people, $.proxy(function(data) {
+		        return $.getJSON('campaign/'+people, $.proxy(function(data) {
 		            this.campaign = data;
-		            callback(this.campaign);
 	            }, this));
-				return this;
 		    },
-		    setUser: function (params, callback) {
+		    setUser: function (params) {
 		        //get crowdtilt user
-		        $.ajax({
+		        return $.ajax({
                     type: "POST",
                     url: 'user',
                     data: JSON.stringify(params),
                     success: $.proxy(function(data) {
                         this.user = data;
-                        callback(this.user);
                     }, this),
                     dataType: "json"
                 }); 
-				return this;
 		    },
-		    setPayment: function(userId, params) {
-		        var deferred = new $.Deferred();
+		    setCreditCard: function(userId, params) {
 		        //get crowdtilt payment for user
-		        $.ajax({
+		        return $.ajax({
                     type: "POST",
                     url: 'user/'+userId+'/card',
                     data: JSON.stringify(params),
                     success: $.proxy(function(data) {
-                        !data.error && (this.payment = data);
-                        deferred.resolve(data);
+                        !data.error && (this.cc = data);
                     }, this),
                     dataType: "json"
                 }); 
-                
-                return deferred.promise();
+		    },
+		    setPayment: function(campaignId, params) {
+		        //get crowdtilt payment for user
+		        return $.ajax({
+                    type: "POST",
+                    url: 'campaign/'+campaignId+'/payment',
+                    data: JSON.stringify(params),
+                    success: $.proxy(function(data) {
+                        //!data.error && (this.cc = data);
+                    }, this),
+                    dataType: "json"
+                }); 
 		    }
 		};
 	};

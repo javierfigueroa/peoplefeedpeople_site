@@ -67,14 +67,16 @@ class Crowdtilt
   
   #create a payment for a campaign
   def create_payment(campaign_id, data)
-    binding.pry
     options = @options
+    data.merge!({
+      :user_fee_amount => 100,
+      :admin_fee_amount => 40
+    })
     options.merge!({ 
       :body => { 
           :payment => data
       }.to_json
     })
-    binding.pry
     self.class.post("/campaigns/"+campaign_id+"/payments", options)
   end
 end

@@ -17,11 +17,19 @@ function main() {
     setGridContent();
     setCampaignContent(1);
     setWizard();
+    setPaymentProcess();
     
     //Attach donation button event
     $(".donation-button").click(function() {
         //save button id to wizard
         $("#rootwizard").data("button", this.id);
+        return false;
+    });
+    
+    $("#partial-button").click(function() {
+        var form = $("#partial-donation-form"),
+		    valid = form.valid();
+        valid && form.submit();
     });
  }
  
@@ -225,7 +233,7 @@ function setWizard() {
         .closest('.control-group').removeClass('error').addClass('success');
       },
       submitHandler: function(form) {     
-        crowdtilt.paymentData = {
+        crowdtilt.ccData = {
             number: form["cc-number"].value,
             expiration_month: form["cc-month"].value,
             expiration_year: form["cc-year"].value,
@@ -234,10 +242,9 @@ function setWizard() {
         
         var people = crowdtilt.campaign.metadata.people,
             firstname = crowdtilt.userData.firstname,
-            cc = crowdtilt.paymentData.number
+            cc = crowdtilt.ccData.number
             metadata = getPeopleMetadata(+people),
-            value = $("#rootwizard").data("button") === "partial-button" ?
-                        $("#partial-donation").val() : crowdtilt.campaignData.remainder;
+            value = getDonationValue();
            
         $("#conf-name").text(firstname);
         $("#conf-people").text(metadata.people);
@@ -247,8 +254,33 @@ function setWizard() {
      });
 }
 
+function setPaymentProcess() {
+    $('#rootwizard .finish').click(function() {
+        $.bootstrapGrowl("Starting transaction...", { type: 'info' });
+		crowdtilt.setUser(crowdtilt.userData).then(function() {
+	        $.bootstrapGrowl("Processing your payment information...", { type: 'info' });
+		    crowdtilt.setCreditCard(crowdtilt.user.id, crowdtilt.ccData).then(function(){
+		        $.bootstrapGrowl("Processing your donation...", { type: 'info' });
+		        crowdtilt.setPayment(crowdtilt.campaign.id, {
+		            "user_id" : crowdtilt.user.id,
+		            "amount" : getDonationValue() * 100,
+		            "card_id" : crowdtilt.cc.id
+		        }).then(function(){
+		            $('#modal').modal('hide');
+		            $.bootstrapGrowl("Everything was successful, thanks!", { type: 'success' });
+    		    });
+		    });
+		})
+	});
+}
+
+function getDonationValue() {
+    return $("#rootwizard").data("button") === "partial-button" ?
+                        $("#partial-donation").val() : crowdtilt.campaignData.remainder;
+}
+
 function setCampaignContent(selection) {
-    crowdtilt.getCampaign(selection, function(campaign) {
+    crowdtilt.getCampaign(selection).then(function(campaign) {
         var total = campaign.tilt_amount / 100,
             raised = campaign.stats.raised_amount / 100,
             remainder = total - raised;
@@ -261,7 +293,33 @@ function setCampaignContent(selection) {
             
         $("#total-donation").text("$" + total);
         $("#raised-donation").text("$" + raised);
-        $("#remainder-donation").text("$" + remainder)
+        $("#remainder-donation").text("$" + remainder);
+        
+        $("#partial-donation-form").validate({
+          rules: {
+            "donation": {
+              minlength: 1,
+              required: true,
+              number: true,
+              min: 1,
+              max: remainder
+            }
+          },
+          highlight: function(element) {
+            $(element).closest('.control-group').removeClass('success').addClass('error');
+          },
+          errorClass: "help-inline error",
+          errorPlacement: function(error, element) {
+             error.insertAfter(element.siblings().first());
+          },
+          success: function(element) {
+            element
+            .closest('.control-group').removeClass('error').addClass('success');
+          },
+          submitHandler: function(form) {
+            $("#modal").modal('show');
+          }
+         });
     });
 }
  
