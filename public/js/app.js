@@ -56,7 +56,8 @@ function main() {
     $(".times").text("x" + value);
     //change campaign monetary values
     setCampaignContent(value);
-    _gaq.push(['_trackEvent', 'Slider Moved', value]);
+    //Log
+    _gaq.push(['_trackEvent', 'Slider', 'Moved to ' + value, 'Previous campaign value is: ' + JSON.stringify(crowdtilt.campaignData) ]);
     clicky.log('#slider/home','Slider moved with value'+value);
 }
 
