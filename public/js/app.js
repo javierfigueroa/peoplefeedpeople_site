@@ -270,7 +270,7 @@ function setPaymentProcess() {
     $('#rootwizard .finish').click(function() {
         $.bootstrapGrowl("Starting transaction...", growl);
         
-        clicky.log('#Submitting-'+crowdtilt.campaign.tilt_amount+"-People-"+campaign.metadata.people,'Submitting donation');
+        clicky.log('#Submitting-'+crowdtilt.campaign.tilt_amount+"-People-"+crowdtilt.campaign.metadata.people,'Submitting donation');
 		crowdtilt.setUser(crowdtilt.userData).then(function() {
 	        $.bootstrapGrowl("Processing your payment information...", growl);
 		    crowdtilt.setCreditCard(crowdtilt.user.id, crowdtilt.ccData).then(function(){
