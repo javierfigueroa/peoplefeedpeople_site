@@ -56,7 +56,8 @@ function main() {
     $(".times").text("x" + value);
     //change campaign monetary values
     setCampaignContent(value);
-    _gaq.push(['_trackEvent', 'Slided Moved', value]);
+    _gaq.push(['_trackEvent', 'Slider Moved', value]);
+    clicky.log('#slider/home','Slider moved with value'+value);
 }
 
 function getPeopleMetadata(value) {
