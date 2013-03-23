@@ -56,6 +56,7 @@ function main() {
     $(".times").text("x" + value);
     //change campaign monetary values
     setCampaignContent(value);
+    _gaq.push(['_trackEvent', 'Slided Moved', value]);
 }
 
 function getPeopleMetadata(value) {
