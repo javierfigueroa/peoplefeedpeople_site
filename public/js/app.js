@@ -335,8 +335,7 @@ function setCampaignContent(selection) {
               minlength: 1,
               required: true,
               number: true,
-              min: 1,
-              max: remainder
+              min: 1
             }
           },
           highlight: function(element) {
@@ -354,6 +353,8 @@ function setCampaignContent(selection) {
             $("#modal").modal('show');
           }
          });
+         
+        $("#partial-donation").rules("add", { max: remainder});
     });
 }
  
