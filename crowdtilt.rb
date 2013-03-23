@@ -21,6 +21,22 @@ class Crowdtilt
     self.class.get("/users/"+user_id+"/campaigns", @options)
   end
   
+  # create a campaign 
+  def create_campaign(data)   
+    #no user found, create one
+    data.merge!({
+      :expiration_date => (Date.today >> 1*12).to_time.getutc.strftime("%Y-%m-%dT%H:%M:%SZ")
+    })
+    
+    options = @options
+    options.merge!({ 
+      :body => { 
+          :campaign => data
+      }.to_json
+    })
+    self.class.post("/campaigns", options)["campaign"]
+  end
+  
   # create a user for an email, check if it exists
   def create_user(data)   
     #query for users
@@ -77,6 +93,6 @@ class Crowdtilt
           :payment => data
       }.to_json
     })
-    self.class.post("/campaigns/"+campaign_id+"/payments", options)
+    self.class.post("/campaigns/"+campaign_id+"/payments", options)["payment"]
   end
 end

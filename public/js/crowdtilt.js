@@ -7,15 +7,29 @@ var Crowdtilt = (function(){
 		    //holds the paying user
 		    user: null,
 		    userData: null,
-		    //holds payment object
+		    //holds cc object
 		    cc: null,
 		    ccData: null,
+		    //holds payment object,
+		    payment: null,
 		    
 		    getCampaign: function (people) {
 		        //get users campaigns
-		        return $.getJSON('campaign/'+people, $.proxy(function(data) {
+		        return $.getJSON('campaigns/'+people, $.proxy(function(data) {
 		            this.campaign = data;
 	            }, this));
+		    },
+		    createCampaign: function (params) {
+		        //get crowdtilt user
+		        return $.ajax({
+                    type: "POST",
+                    url: 'campaigns',
+                    data: JSON.stringify(params),
+                    success: $.proxy(function(data) {
+                        this.campaign = data;
+                    }, this),
+                    dataType: "json"
+                }); 
 		    },
 		    setUser: function (params) {
 		        //get crowdtilt user
@@ -48,7 +62,7 @@ var Crowdtilt = (function(){
                     url: 'campaign/'+campaignId+'/payment',
                     data: JSON.stringify(params),
                     success: $.proxy(function(data) {
-                        //!data.error && (this.cc = data);
+                        !data.error && (this.payment = data);
                     }, this),
                     dataType: "json"
                 }); 

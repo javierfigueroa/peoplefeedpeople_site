@@ -12,12 +12,20 @@ get '/' do
 end
 
 #get campaigns from 1-6
-get '/campaign/:id' do
+get '/campaigns/:id' do
   content_type :json
   crowdtilt = Crowdtilt.new
   campaigns = crowdtilt.campaigns("USR78057B42890C11E2BC85BDD7562F032E")["campaigns"]
   campaign = campaigns.find { |e| e['metadata']['people'] == params["id"] && e["is_tilted"] == 0}
   return campaign.to_json
+end
+
+post '/campaigns' do
+  content_type :json
+  request.body.rewind
+  data = JSON.parse request.body.read
+  crowdtilt = Crowdtilt.new
+  crowdtilt.create_campaign(data).to_json
 end
 
 #create a payment for a campaign with id

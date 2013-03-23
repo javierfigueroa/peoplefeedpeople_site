@@ -15,6 +15,7 @@ $(function() {
 function main() {
     setupSlider();
     setGridContent();
+    
     setCampaignContent(1);
     setWizard();
     setPaymentProcess();
@@ -22,14 +23,16 @@ function main() {
     //Attach donation button event
     $(".donation-button").click(function() {
         //save button id to wizard
-        $("#rootwizard").data("button", this.id);
-        return false;
+        var wizard = $('#rootwizard');
+        wizard.data("bootstrapWizard").first();
+        wizard.data("button", this.id);
     });
     
     $("#partial-button").click(function() {
         var form = $("#partial-donation-form"),
 		    valid = form.valid();
         valid && form.submit();
+        return false;
     });
  }
  
@@ -255,19 +258,39 @@ function setWizard() {
 }
 
 function setPaymentProcess() {
+    var growl = {
+        type: 'info'
+    };
+    
     $('#rootwizard .finish').click(function() {
-        $.bootstrapGrowl("Starting transaction...", { type: 'info' });
+        $.bootstrapGrowl("Starting transaction...", growl);
 		crowdtilt.setUser(crowdtilt.userData).then(function() {
-	        $.bootstrapGrowl("Processing your payment information...", { type: 'info' });
+	        $.bootstrapGrowl("Processing your payment information...", growl);
 		    crowdtilt.setCreditCard(crowdtilt.user.id, crowdtilt.ccData).then(function(){
-		        $.bootstrapGrowl("Processing your donation...", { type: 'info' });
+		        $.bootstrapGrowl("Processing your donation...", growl);
 		        crowdtilt.setPayment(crowdtilt.campaign.id, {
 		            "user_id" : crowdtilt.user.id,
 		            "amount" : getDonationValue() * 100,
 		            "card_id" : crowdtilt.cc.id
-		        }).then(function(){
+		        }).then(function(payment){
+		            //Payment went through show little message
 		            $('#modal').modal('hide');
-		            $.bootstrapGrowl("Everything was successful, thanks!", { type: 'success' });
+		            $.bootstrapGrowl("Everything was successful, thanks!", { type: "success" });
+		            //Check if campaign was tilted		            
+	                var campaign = payment.campaign;
+		            if (campaign.stats.tilt_percent === 100) { 
+		                //TODO: show message
+		                crowdtilt.createCampaign({
+		                    "user_id" : userId,
+                            "title" : campaign.title,
+                            "tilt_amount" : campaign.tilt_amount,
+                            "metadata" : campaign.metadata
+		                }).then(function(){
+        		            setCampaignContent($( "#slider" ).slider("value"));
+		                });
+		            }else{
+    		            setCampaignContent($( "#slider" ).slider("value"));
+		            }
     		    });
 		    });
 		})

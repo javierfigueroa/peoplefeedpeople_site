@@ -5,12 +5,6 @@
 h2 {
     text-align: center;
 }
-#slider {
-    width: 800px;
-}
-#slider .ui-slider-range { 
-    background: #ef2929; 
-}
 
 #peoples {
     text-align: center;
@@ -67,4 +61,37 @@ h2 {
 
 label.error {
     padding: 0;
+}
+
+
+/*the slider background*/
+#slider {
+    width: 792px;
+/*    background: #ef2929; */
+height:17px !important;
+background:url(/img/slider-bg-barv.png) !important;
+position:relative !important;
+margin:0 !important;
+padding:0 10px !important;
+border: 0px !important;
+}
+ 
+/*Style for the slider button*/
+.ui-slider-handle {
+width:40px !important;
+height:40px !important;
+position:absolute !important;
+top:-14px !important;
+margin-left:-12px !important;
+z-index:200 !important;
+background:url(/img/slider-handle.png) !important;
+}
+ 
+/*This is the fill bar colour*/
+.ui-widget-header {
+background:url(/img/slider-fill-bar.png) no-repeat left !important;
+height:14px !important;
+left:1px !important;
+top:1px !important;
+position:absolute !important;
 }
