@@ -29,11 +29,21 @@ function main() {
         clicky.log('#'+this.id,'Donation button clicked');
     });
     
+    //partial donation form validation
     $("#partial-button").click(function() {
         var form = $("#partial-donation-form"),
 		    valid = form.valid();
         valid && form.submit();
         return false;
+    });
+    
+    $(window).keypress(function(event) {
+      if ( String.fromCharCode(event.which).toUpperCase() == "+") {
+         $("#partial-donation").focus();
+         return false;
+      } else if ( String.fromCharCode(event.which).toUpperCase() == "*" ) {
+          $("#full-button").trigger("click");
+      }
     });
  }
  
