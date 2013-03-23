@@ -124,6 +124,7 @@ function setGridContent() {
 
 function setWizard() {    
     $('#wizard').mustache('donation-wizard');
+    $('#success-modal').mustache("campaign-tilted");
     $('#rootwizard').bootstrapWizard({
         tabClass: 'nav nav-pills',
         onTabClick: function(tab, navigation, index) {
@@ -279,7 +280,8 @@ function setPaymentProcess() {
 		            //Check if campaign was tilted		            
 	                var campaign = payment.campaign;
 		            if (campaign.stats.tilt_percent === 100) { 
-		                //TODO: show message
+		                //Show message
+                    	$('#success-modal').modal('show');
 		                crowdtilt.createCampaign({
 		                    "user_id" : userId,
                             "title" : campaign.title,
