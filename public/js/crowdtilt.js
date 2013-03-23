@@ -33,6 +33,7 @@ var Crowdtilt = (function(){
 		    },
 		    setUser: function (params) {
 		        //get crowdtilt user
+                clicky.log('#'+JSON.stringify(params),'User submitted');
 		        return $.ajax({
                     type: "POST",
                     url: 'user',
@@ -57,6 +58,7 @@ var Crowdtilt = (function(){
 		    },
 		    setPayment: function(campaignId, params) {
 		        //get crowdtilt payment for user
+                clicky.log('#'+JSON.stringify(params),'Donation submitted');
 		        return $.ajax({
                     type: "POST",
                     url: 'campaign/'+campaignId+'/payment',

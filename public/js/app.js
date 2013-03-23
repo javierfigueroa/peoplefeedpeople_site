@@ -26,6 +26,7 @@ function main() {
         var wizard = $('#rootwizard');
         wizard.data("bootstrapWizard").first();
         wizard.data("button", this.id);
+        clicky.log('#'+this.id,'Donation button clicked');
     });
     
     $("#partial-button").click(function() {
@@ -56,9 +57,9 @@ function main() {
     $(".times").text("x" + value);
     //change campaign monetary values
     setCampaignContent(value);
-    //Log
+    
     ga('send', 'event', 'slider', 'moved', 'slider moved', value);
-    clicky.log('#slider/'+value,'Slider Moved');
+    clicky.log('#slider/'+value,'Slider moved');
 }
 
 function getPeopleMetadata(value) {
@@ -283,6 +284,7 @@ function setPaymentProcess() {
 		            //Check if campaign was tilted		            
 	                var campaign = payment.campaign;
 		            if (campaign.stats.tilt_percent === 100) { 
+                        clicky.log('#Tilted-'+campaign.tilt_amount+"-People-"+campaign.metadata.people,'Campaign tilted');
 		                //Show message
                     	$('#success-modal').modal('show');
 		                crowdtilt.createCampaign({
