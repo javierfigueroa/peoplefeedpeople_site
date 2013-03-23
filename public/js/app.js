@@ -57,8 +57,8 @@ function main() {
     //change campaign monetary values
     setCampaignContent(value);
     //Log
-    _gaq.push(['_trackEvent', 'Slider', 'Moved', JSON.stringify(crowdtilt.campaignData), value]);
-    clicky.log('#slider/home','Slider moved with value'+value);
+    ga('send', 'event', 'slider', 'moved', 'slider moved', value);
+    clicky.log('#slider/'+value,'Slider Moved');
 }
 
 function getPeopleMetadata(value) {
@@ -318,6 +318,8 @@ function setCampaignContent(selection) {
             raised: raised,
             remainder: remainder
         };
+        
+        ga('send', 'event', 'campaign', 'received', JSON.stringify(crowdtilt.campaignData), 1); 
             
         $("#total-donation").text("$" + total);
         $("#raised-donation").text("$" + raised);
