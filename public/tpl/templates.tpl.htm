@@ -1,7 +1,7 @@
 <script id="grid-item" type="text/html">
 <li class="span2">
     <div class="thumbnail">
-        <a href="{{url}}" target="_blank">
+        <a href="{{url}}" target="_blank" onclick="clicky.log('#image/{{name}}','Clicked product'); return false;">
             <img data-src="holder.js/160x120" alt="160x120" style="width: auto; height: 140px;" src="{{image}}">
         </a>
         <p>{{name}}</p>
