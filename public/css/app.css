@@ -2,7 +2,7 @@
     padding-top: 80px;
 }
 
-h2 {
+h2.center {
     text-align: center;
 }
 
@@ -67,13 +67,13 @@ label.error {
 
 /*the slider background*/
 #slider {
-    width: 792px;
+    width: 780px;
 /*    background: #ef2929; */
 height:17px !important;
 background:url(/img/slider-bg-barv.png) !important;
 position:relative !important;
 margin:0 !important;
-padding:0 10px !important;
+padding:0px !important;
 border: 0px !important;
 }
  

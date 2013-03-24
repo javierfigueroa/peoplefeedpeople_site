@@ -37,6 +37,7 @@ function main() {
         return false;
     });
     
+    //shortcuts keys events
     $(window).keypress(function(event) {
       if ( String.fromCharCode(event.which).toUpperCase() == "+") {
          $("#partial-donation").focus();
@@ -60,14 +61,15 @@ function main() {
  }
  
  function sliderMoved( event, ui ) {
-    var value = ui.value;
+    var value = ui.value,
+        metadata = getPeopleMetadata(value);
     //set people image when slider moves
-    setPeopleImage(getPeopleMetadata(value));
+    setPeopleImage(metadata);
     //change the x value in products    
     $(".times").text("x" + value);
     //change campaign monetary values
     setCampaignContent(value);
-    
+    //log events
     ga('send', 'event', 'slider', 'moved', 'slider moved', value);
     clicky.log('#slider/'+value,'Slider moved');
 }
@@ -279,8 +281,8 @@ function setPaymentProcess() {
     
     $('#rootwizard .finish').click(function() {
         $.bootstrapGrowl("Starting transaction...", growl);
-        
-        clicky.log('#Submitting-'+crowdtilt.campaign.tilt_amount+"-People-"+crowdtilt.campaign.metadata.people,'Submitting donation');
+        //log
+     clicky.log('#Submitting-'+crowdtilt.campaign.tilt_amount+"-People-"+crowdtilt.campaign.metadata.people,'Submitting donation');
 		crowdtilt.setUser(crowdtilt.userData).then(function() {
 	        $.bootstrapGrowl("Processing your payment information...", growl);
 		    crowdtilt.setCreditCard(crowdtilt.user.id, crowdtilt.ccData).then(function(){
@@ -296,6 +298,7 @@ function setPaymentProcess() {
 		            //Check if campaign was tilted		            
 	                var campaign = payment.campaign;
 		            if (campaign.stats.tilt_percent === 100) { 
+		                //log
                         clicky.log('#Tilted-'+campaign.tilt_amount+"-People-"+campaign.metadata.people,'Campaign tilted');
 		                //Show message
                     	$('#success-modal').modal('show');
@@ -322,6 +325,9 @@ function getDonationValue() {
 }
 
 function setCampaignContent(selection) {
+    var metadata = getPeopleMetadata(selection);
+    //set people number
+    $("#people-number").text(metadata.people);
     crowdtilt.getCampaign(selection).then(function(campaign) {
         var total = campaign.tilt_amount / 100,
             raised = campaign.stats.raised_amount / 100,
