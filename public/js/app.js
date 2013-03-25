@@ -3,6 +3,7 @@ var donation; //holds the total donation value for a campaign
 var shipping = 40; //shipping for 6 items
 var userId = "USR78057B42890C11E2BC85BDD7562F032E";
 var crowdtilt = new Crowdtilt.getInstance(); //Handle crowdtilt
+var processing = false;
 
 $(function() {
     //Load templates
@@ -140,7 +141,6 @@ function setGridContent() {
 
 function setWizard() {    
     $('#wizard').mustache('donation-wizard');
-    $('#success-modal').mustache("campaign-tilted");
     $('#rootwizard').bootstrapWizard({
         tabClass: 'nav nav-pills',
         onTabClick: function(tab, navigation, index) {
@@ -280,43 +280,57 @@ function setPaymentProcess() {
     };
     
     $('#rootwizard .finish').click(function() {
-        $.bootstrapGrowl("Starting transaction...", growl);
-        //log
-     clicky.log('#Submitting-'+crowdtilt.campaign.tilt_amount+"-People-"+crowdtilt.campaign.metadata.people,'Submitting donation');
-		crowdtilt.setUser(crowdtilt.userData).then(function() {
-	        $.bootstrapGrowl("Processing your payment information...", growl);
-		    crowdtilt.setCreditCard(crowdtilt.user.id, crowdtilt.ccData).then(function(){
-		        $.bootstrapGrowl("Processing your donation...", growl);
-		        crowdtilt.setPayment(crowdtilt.campaign.id, {
-		            "user_id" : crowdtilt.user.id,
-		            "amount" : getDonationValue() * 100,
-		            "card_id" : crowdtilt.cc.id
-		        }).then(function(payment){
-		            //Payment went through show little message
-		            $('#modal').modal('hide');
-		            $.bootstrapGrowl("Everything was successful, thanks!", { type: "success" });
-		            //Check if campaign was tilted		            
-	                var campaign = payment.campaign;
-		            if (campaign.stats.tilt_percent === 100) { 
-		                //log
-                        clicky.log('#Tilted-'+campaign.tilt_amount+"-People-"+campaign.metadata.people,'Campaign tilted');
-		                //Show message
-                    	$('#success-modal').modal('show');
-		                crowdtilt.createCampaign({
-		                    "user_id" : userId,
-                            "title" : campaign.title,
-                            "tilt_amount" : campaign.tilt_amount,
-                            "metadata" : campaign.metadata
-		                }).then(function(){
-        		            setCampaignContent($( "#slider" ).slider("value"));
-		                });
-		            }else{
-    		            setCampaignContent($( "#slider" ).slider("value"));
-		            }
+        if (!processing) {       
+            processing = true;  
+            $('#rootwizard .finish').toggleClass("disabled");
+            $.bootstrapGrowl("Starting transaction...", growl);
+            //log
+         clicky.log('#Submitting-'+crowdtilt.campaign.tilt_amount+"-People-"+crowdtilt.campaign.metadata.people,
+                    'Submitting donation');
+    		crowdtilt.setUser(crowdtilt.userData).then(function() {
+    	        $.bootstrapGrowl("Processing your payment information...", growl);
+    		    crowdtilt.setCreditCard(crowdtilt.user.id, crowdtilt.ccData).then(function(){
+    		        $.bootstrapGrowl("Processing your donation...", growl);
+    		        crowdtilt.setPayment(crowdtilt.campaign.id, {
+    		            "user_id" : crowdtilt.user.id,
+    		            "amount" : getDonationValue() * 100,
+    		            "card_id" : crowdtilt.cc.id
+    		        }).then(paymentProcessed);
     		    });
-		    });
-		})
+    		});
+        }
 	});
+}
+
+function paymentProcessed(payment){
+    //Payment went through show little message
+    processing = false;
+    $('#modal').modal('hide');        
+    $('#rootwizard .finish').toggleClass("disabled");
+    $(".succces-modal-body").remove()
+    $.bootstrapGrowl("Everything was successful, thanks!", { type: "success" });
+    //Check if campaign was tilted		            
+    var campaign = payment.campaign;
+    if (campaign.stats.tilt_percent === 100) { 
+        //log
+        clicky.log('#Tilted-'+campaign.tilt_amount+"-People-"+campaign.metadata.people,'Campaign tilted');
+        //Show tilted message
+        $('#success-modal').mustache("campaign-tilted");
+        crowdtilt.createCampaign({
+            "user_id" : userId,
+            "title" : campaign.title,
+            "tilt_amount" : campaign.tilt_amount,
+            "metadata" : campaign.metadata
+        }).then(function(){
+            setCampaignContent($( "#slider" ).slider("value"));
+        });
+    }else{
+        //show regular success message
+        $('#success-modal').mustache("donated-modal");
+        setCampaignContent($( "#slider" ).slider("value"));
+    }
+    //show modal
+	$('#success-modal').modal('show');
 }
 
 function getDonationValue() {
@@ -327,7 +341,7 @@ function getDonationValue() {
 function setCampaignContent(selection) {
     var metadata = getPeopleMetadata(selection);
     //set people number
-    $("#people-number").text(metadata.people);
+    $(".people-number").text(metadata.people);
     crowdtilt.getCampaign(selection).then(function(campaign) {
         var total = campaign.tilt_amount / 100,
             raised = campaign.stats.raised_amount / 100,
@@ -344,6 +358,7 @@ function setCampaignContent(selection) {
         $("#total-donation").text("$" + total);
         $("#raised-donation").text("$" + raised);
         $("#remainder-donation").text("$" + remainder);
+        $("#contributions").text(campaign.stats.number_of_contributions);
         
         $("#partial-donation-form").validate({
           rules: {
