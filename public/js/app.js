@@ -115,7 +115,7 @@ function setPeopleImage(params) {
  
 function setGridContent() {
     //set donation form fixed
-    $('#donation-form').scrollToFixed({ marginTop: 50});
+    // $('#donation-form').scrollToFixed({ marginTop: 50});
     $("#grid").empty();
     $.getJSON("json/products.json", function(response) {
         var items = products = response.products,
