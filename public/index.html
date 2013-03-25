@@ -75,7 +75,6 @@
              <div class="row">
                <div class="span12 offset1">
                  <div class="badge badge-info subtitle">Select the number of people you'd like to help today:</div>
-                 <span class="badge badge-inverse"><small>Drag the slider knob left and right and see the campaign values change</small></span>
                </div>
              </div>
              <div class="row">
@@ -111,36 +110,28 @@
            </div>
            <div class="row"><!-- currently raised -->
                <div class="span12"> 
-                   <div class="row pad20l-row">
-                       <h3 style="text-align:center">Currently raised:</h3>
-                   </div>
-                   <div class="row pad20l-row">
-                       <div class="span2 offset3">
-                           <span id="raised-donation" class="badge badge-warning money pull-right">$0.0</span>
+                   <div class="row pad20l-row" style="padding-top: 40px;">
+                       <div class="span4 offset1">
+                           <div style="font-size: 16px;">The community has currently raised the following amount in order to feed this number of people for a month</div>
                        </div>
-                       <div class="span1">
-                            <h2 style="">of</h2>
-                       </div>
-                       <div class="span3">
-                           <span id="total-donation" class="badge badge-success money">$0.0</span>
+                       
+                       <div class="span6">
+                           <div class="span2">
+                               <span id="raised-donation" class="badge badge-warning money pull-right">$0</span>
+                           </div>
+                           <div class="span1" style="padding-left: 20px;">
+                                <h2>of</h2>
+                           </div>
+                           <div class="span2">
+                               <span id="total-donation" class="badge badge-success money">$631</span>
+                           </div>
                        </div>
                     </div>
                 </div>
-           </div><!-- end currently raised --> 
+           </div>
            <hr>
            
            <div id="donation-area" class="row pad30l-row">
-               <div class="span6"><!-- items area -->
-                    <h2>Your donation will buy the following food items and feed <span id="people-number"></span> people</h2>
-                    <span class="badge badge-info"><small>These items will be purchased automatically from amazon.com when the donation is complete.</small></span>
-                    <hr>
-                    <div class="row pad20l-row"><!-- grid -->
-                        <ul id="grid" class="thumbnails">
-                            
-                        </ul>
-                    </div>
-               </div> <!-- end items area -->
-               
                <div id="donation-form" class="span4 offset1"><!-- funding area -->                 
                     <div class="row"> <!-- donate partial amount -->
                         <div class="span4"> 
@@ -177,6 +168,17 @@
                         </div>
                     </div><!-- end donate rest -->
                </div><!-- end funding area -->
+               
+               <div class="span6"><!-- items area -->
+                    <h2>Your donation will buy the following food items and feed <span id="people-number"></span> people for a month</h2>
+                    <span class="badge badge-info"><small>These items will be purchased automatically from amazon.com when the donation is complete.</small></span>
+                    <hr>
+                    <div class="row pad20l-row"><!-- grid -->
+                        <ul id="grid" class="thumbnails">
+                            
+                        </ul>
+                    </div>
+               </div> <!-- end items area -->
            </div>
 
            <hr>
