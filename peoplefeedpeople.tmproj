@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>public/tpl/templates.tpl.htm</string>
+	<string>public/js/app.js</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -18,19 +18,19 @@
 			<key>filename</key>
 			<string>application.rb</string>
 			<key>lastUsed</key>
-			<date>2013-03-18T02:34:10Z</date>
+			<date>2013-03-23T18:59:30Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>crowdtilt.rb</string>
 			<key>lastUsed</key>
-			<date>2013-03-18T02:33:31Z</date>
+			<date>2013-03-23T21:25:17Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>config.ru</string>
 			<key>lastUsed</key>
-			<date>2013-03-16T17:46:07Z</date>
+			<date>2013-03-23T19:31:16Z</date>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -66,42 +66,56 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>96</integer>
+				<integer>15</integer>
 				<key>line</key>
-				<integer>18</integer>
+				<integer>14</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>5</integer>
-		</dict>
-		<key>crowdtilt.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>17</integer>
-				<key>line</key>
-				<integer>53</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
 			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>1</integer>
 		</dict>
-		<key>public/css/app.css</key>
+		<key>config.ru</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>46</integer>
+				<integer>5</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>20</integer>
+			<integer>0</integer>
+		</dict>
+		<key>crowdtilt.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>30</integer>
+				<key>line</key>
+				<integer>25</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>4</integer>
+		</dict>
+		<key>public/css/app.css</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>19</integer>
+				<key>line</key>
+				<integer>35</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>19</integer>
 		</dict>
 		<key>public/index.html</key>
 		<dict>
@@ -110,85 +124,85 @@
 				<key>column</key>
 				<integer>16</integer>
 				<key>line</key>
-				<integer>170</integer>
+				<integer>204</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>111</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>148</integer>
+			<integer>183</integer>
 		</dict>
 		<key>public/js/app.js</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>16</integer>
+				<integer>23</integer>
 				<key>line</key>
-				<integer>18</integer>
+				<integer>5</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>73</integer>
+			<integer>0</integer>
 		</dict>
 		<key>public/js/crowdtilt.js</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>29</integer>
+				<integer>59</integer>
 				<key>line</key>
-				<integer>10</integer>
+				<integer>59</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>14</integer>
+			<integer>25</integer>
+		</dict>
+		<key>public/json/products.json</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>4</integer>
+				<key>line</key>
+				<integer>30</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
 		</dict>
 		<key>public/tpl/templates.tpl.htm</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>12</integer>
+				<integer>5</integer>
 				<key>line</key>
-				<integer>11</integer>
+				<integer>21</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>21</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>27</integer>
-				<key>line</key>
-				<integer>11</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>12</integer>
-				<key>line</key>
-				<integer>11</integer>
-			</dict>
+			<integer>67</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>application.rb</string>
+		<string>config.ru</string>
 		<string>public/js/crowdtilt.js</string>
 		<string>public/js/app.js</string>
 		<string>public/index.html</string>
-		<string>public/tpl/templates.tpl.htm</string>
+		<string>public/json/products.json</string>
 		<string>public/css/app.css</string>
 		<string>crowdtilt.rb</string>
+		<string>public/tpl/templates.tpl.htm</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{349, -0}, {921, 778}}</string>
+	<string>{{339, 0}, {941, 778}}</string>
 </dict>
 </plist>
