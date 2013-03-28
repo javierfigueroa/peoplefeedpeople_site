@@ -93,6 +93,7 @@ class Crowdtilt
           :payment => data
       }.to_json
     })
-    self.class.post("/campaigns/"+campaign_id+"/payments", options)["payment"]
+    response = self.class.post("/campaigns/"+campaign_id+"/payments", options)
+    response["payment"] || response
   end
 end
