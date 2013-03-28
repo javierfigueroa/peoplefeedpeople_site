@@ -50,10 +50,10 @@ function main() {
  }
  
  function setupSlider() {
-    $( "#slider" ).slider({
+    $( ".slider" ).slider({
       value:1,
       min: 1,
-      max: 6,
+      max: 3,
       step: 1,
       orientation: "horizontal",
       range: "min",
@@ -61,18 +61,27 @@ function main() {
     });
  }
  
- function sliderMoved( event, ui ) {
+ function sliderMoved(event, ui) {
     var value = ui.value,
-        metadata = getPeopleMetadata(value);
-    //set people image when slider moves
-    setPeopleImage(metadata);
-    //change the x value in products    
-    $(".times").text("x" + value);
-    //change campaign monetary values
-    setCampaignContent(value);
-    //log events
-    ga('send', 'event', 'slider', 'moved', 'slider moved', value);
-    clicky.log('#slider/'+value,'Slider moved');
+        id = this.id;
+    
+    if (id === "slider-people") {        
+        var metadata = getPeopleMetadata(value);
+        //set people image when slider moves
+        setPeopleImage(metadata);
+        //change campaign monetary values
+        setCampaignContent(value);
+        //log events
+    }else if (id === "slider-months") {
+        $("#months-label").text(value === 1 ? value : (value-1)*6);
+    }else{ // slider-amount
+        $("#amount-label").text(value+"x");
+        //change the x value in products    
+        $(".times").text(value+"x");
+    }
+    
+    ga('send', 'event', '#'+id, 'moved', 'slider moved', value);
+    clicky.log('#'+id+'/'+value,'Slider moved');
 }
 
 function getPeopleMetadata(value) {
@@ -81,12 +90,6 @@ function getPeopleMetadata(value) {
         return { color: "#FF6C00", people: 3, image: "img/people-3.png", times: 1 };
         case 3:
         return { color: "#FF7F00", people: 4, image: "img/people-4.png", times: 1 };
-        case 4:
-        return { color: "#FFB100", people: 6, image: "img/people-3.png", times: 2 };
-        case 5:
-        return { color: "#FFCB00", people: 8, image: "img/people-4.png", times: 2 };
-        case 6:
-        return { color: "#9FEE00", people: 14, image: "img/people-7.png", times: 2 };
         default:
         return { color: "#FF0700", people: 2, image: "img/people-2.png", times: 1 };
     }
@@ -121,7 +124,7 @@ function setGridContent() {
     $.getJSON("json/products.json", function(response) {
         var items = products = response.products,
             itemsLength = items.length,
-            people = parseInt($('#slider').slider("option", "value")),
+            people = parseInt($('#slider-people').slider("option", "value")),
             sum = 0,
             i = 0;
             
