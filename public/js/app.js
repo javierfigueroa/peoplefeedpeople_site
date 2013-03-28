@@ -17,7 +17,7 @@ function main() {
     setupSlider();
     setGridContent();
     
-    setCampaignContent(1);
+    setCampaignContent();
     setWizard();
     setPaymentProcess();
     
@@ -57,7 +57,7 @@ function main() {
       step: 1,
       orientation: "horizontal",
       range: "min",
-      slide: sliderMoved
+      change: sliderMoved
     });
  }
  
@@ -69,8 +69,6 @@ function main() {
         var metadata = getPeopleMetadata(value);
         //set people image when slider moves
         setPeopleImage(metadata);
-        //change campaign monetary values
-        setCampaignContent(value);
         //log events
     }else if (id === "slider-months") {
         $("#months-label").text(value === 1 ? value : (value-1)*6);
@@ -80,6 +78,8 @@ function main() {
         $(".times").text(value+"x");
     }
     
+    //change campaign monetary values
+    setCampaignContent();
     ga('send', 'event', '#'+id, 'moved', 'slider moved', value);
     clicky.log('#'+id+'/'+value,'Slider moved');
 }
@@ -263,7 +263,8 @@ function setWizard() {
             security_code: form["cc-code"].value
         };
         
-        var people = crowdtilt.campaign.metadata.people,
+        var metadata = parseMetadata(crowdtilt.campaign.metadata),
+            people = metadata.people,
             firstname = crowdtilt.userData.firstname,
             cc = crowdtilt.ccData.number
             metadata = getPeopleMetadata(+people),
@@ -277,6 +278,23 @@ function setWizard() {
      });
 }
 
+function parseMetadata(metadata) {
+    var key = metadata.key.split("-");
+    return {
+        people: key[0],
+        months: key[1],
+        times: key[2]
+    };
+}
+
+function getSliderValues() {
+    return {
+        people: $("#slider-people").slider("value"),
+        months: $("#slider-months" ).slider("value"),
+        times: $( "#slider-amount" ).slider("value")
+    };
+}
+
 function setPaymentProcess() {
     var growl = {
         type: 'info'
@@ -288,7 +306,7 @@ function setPaymentProcess() {
             $('#rootwizard .finish').toggleClass("disabled");
             $.bootstrapGrowl("Starting transaction...", growl);
             //log
-         clicky.log('#Submitting-'+crowdtilt.campaign.tilt_amount+"-People-"+crowdtilt.campaign.metadata.people,
+         clicky.log('#Submitting-'+crowdtilt.campaign.tilt_amount+"-Key-"+crowdtilt.campaign.metadata,
                     'Submitting donation');
     		crowdtilt.setUser(crowdtilt.userData).then(function() {
     	        $.bootstrapGrowl("Processing your payment information...", growl);
@@ -325,12 +343,12 @@ function paymentProcessed(payment){
             "tilt_amount" : campaign.tilt_amount,
             "metadata" : campaign.metadata
         }).then(function(){
-            setCampaignContent($( "#slider" ).slider("value"));
+            setCampaignContent();
         });
     }else{
         //show regular success message
         $('#success-modal').mustache("donated-modal");
-        setCampaignContent($( "#slider" ).slider("value"));
+        setCampaignContent();
     }
     //show modal
 	$('#success-modal').modal('show');
@@ -341,11 +359,18 @@ function getDonationValue() {
                         $("#partial-donation").val() : crowdtilt.campaignData.remainder;
 }
 
-function setCampaignContent(selection) {
-    var metadata = getPeopleMetadata(selection);
+function setCampaignContent() {
+    var sliderValues = getSliderValues(),
+        people = getPeopleMetadata(sliderValues.people).people,
+        months = sliderValues.months === 1 ? sliderValues.months : (sliderValues.months-1)*6,
+        times = sliderValues.times;
+        
     //set people number
-    $(".people-number").text(metadata.people);
-    crowdtilt.getCampaign(selection).then(function(campaign) {
+    $(".people-number").text(people);
+    $(".month-number").text(months == 1 ? "1 month" : months + " months");
+    
+    //get campaign
+    crowdtilt.getCampaign(people+"-"+months+"-"+times).then(function(campaign) {
         var total = campaign.tilt_amount / 100,
             raised = campaign.stats.raised_amount / 100,
             remainder = total - raised;

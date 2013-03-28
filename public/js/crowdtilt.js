@@ -13,9 +13,9 @@ var Crowdtilt = (function(){
 		    //holds payment object,
 		    payment: null,
 		    
-		    getCampaign: function (people) {
+		    getCampaign: function (key) {
 		        //get users campaigns
-		        return $.getJSON('campaigns/'+people, $.proxy(function(data) {
+		        return $.getJSON('campaigns/'+key, $.proxy(function(data) {
 		            this.campaign = data;
 	            }, this));
 		    },
