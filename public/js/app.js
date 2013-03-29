@@ -413,7 +413,7 @@ function setCampaignContent() {
           }
          });
          
-        $("#partial-donation").rules("add", { max: remainder});
+        $("#partial-donation").rules("add", { max: remainder > 10000 ? 10000 : remainder});
     });
 }
  
