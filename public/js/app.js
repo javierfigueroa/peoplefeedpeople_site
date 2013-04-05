@@ -57,7 +57,8 @@ function main() {
       step: 1,
       orientation: "horizontal",
       range: "min",
-      change: sliderMoved
+      slide: sliderMoved,
+      change: setCampaignContent
     });
  }
  
@@ -78,8 +79,9 @@ function main() {
         $(".times").text(value+"x");
     }
     
-    //change campaign monetary values
-    setCampaignContent();
+    $("#total-donation").text("...");
+    $("#remainder-donation").text("...");
+    
     ga('send', 'event', '#'+id, 'moved', 'slider moved', value);
     clicky.log('#'+id+'/'+value,'Slider moved');
 }
