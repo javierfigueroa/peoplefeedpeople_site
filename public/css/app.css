@@ -11,8 +11,8 @@ h2.center {
     padding-top: 20px;
 }
 
-.spinner {
-    background:url(/img/ajax-loader.gif) !important;
+#peoples img {
+    width: 34%;
 }
 
 .money {
@@ -73,7 +73,7 @@ h2.center {
 }
 
 .subtitle {
-    font-size: 30px;
+    font-size: 20px;
     padding: 20px;
     background-color: #007fff;
 }
@@ -83,14 +83,14 @@ label.error {
 }
 
 .number-wrap {
-    padding-top: 72px;
-    padding-bottom: 72px;
+    padding-top: 58px;
+    padding-bottom: 25px;
 }
 
 label.number {
     margin: 0;
     padding: 0;
-    font-size: 126.45416666666668px;
+    font-size: 87px;
     vertical-align: baseline;
     background: transparent;
 }
