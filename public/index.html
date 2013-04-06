@@ -65,7 +65,6 @@
          </div>
 
          <div class="container">
-
            <!-- Main hero unit for a primary marketing message or call to action -->
            <div class="hero-unit">
              <h1>People Feed People > Hunger</h1>
@@ -78,9 +77,9 @@
                </div>
              </div>
              <div class="row">
-                 <div class="span12">
-                    <div class="span3 offset1 pad20l"> <!-- people slider -->
-                        
+                <div class="span12">
+                  <div class="span7 offset1">
+                    <div class="span2"> <!-- people slider -->   
                         <div class="row">
                             <div id="peoples" class="">
                                 <img id="people-image" src="img/people-2.png" />
@@ -89,133 +88,147 @@
                         <div class="row">
                             <h2 class="center">People</h2>
                         </div>
-                        <div class="row center">
+                        <div class="row">
                             <div class="span1">
                                <div id="slider-people" class="slider"></div>
                              </div>
                         </div>
                     </div><!-- end people slider -->
-                    <div class="span3" style="text-align: center;"> <!-- months slider -->
-                        <div class="row center">
+                    <div class="span2" style="text-align: center;"> <!-- months slider -->
+                        <div class="row">
                             <div class="number-wrap">
                                 <label id="months-label" class="number">1</label>
                             </div>
                         </div>
                         <div class="row">
-                            <h2 class="center pad20l">Months</h2>
+                            <h2 class="center">Months</h2>
                         </div>
-                        <div class="row center">
+                        <div class="row">
                             <div class="span1">
                                <div id="slider-months" class="slider"> </div>
                             </div>
                         </div>
                     </div><!-- end month slider -->
-                    <div class="span3" style="text-align: center;"><!-- amount slider -->
+                   <div class="span2" style="text-align: center;"><!-- amount slider -->
                         <div class="row">
                             <div class="number-wrap">
                                 <label id="amount-label" class="number">1x</label>
                             </div>
                         </div>
                         <div class="row">
-                            <h2 class="center pad20l">Food</h2>
+                            <h2 class="center">Food</h2>
                         </div>
-                        <div class="row center">
+                        <div class="row">
                             <div class="span1">
                                <div id="slider-amount" class="slider"></div>
                              </div>
                         </div>
                     </div><!-- end amount slider -->
-                 </div>
-           </div>
-           <div class="row"><!-- currently raised -->
-               <div class="span12"> 
-                   <div class="row" style="text-align:center;">
-                       <div class="span12">
-                           <div style="font-size: 20px;line-height: 25px;padding-top: 54px;"><span id="contributions">0</span> donors have currently raised the following amount in order to feed <span class="people-number"></span> people for <span class="month-number"></span></div>
+                   <div class="span6"> 
+                       <div style="font-size: 16px;line-height: 25px;padding-top: 54px;">
+                           <span id="contributions" class="badge badge-info">0</span> donors have currently contributed to this campaign configuration in order to feed <span class="people-number badge badge-info"></span> people for <span class="month-number badge badge-info"></span> months 
                        </div>
-                       
+                   </div>
+               </div>
+               <div class="span3" style="padding: 22px 0 0 0"><!-- items area -->
+                    <div class="row pad20l"><!-- grid -->                      
+                       <div id="myCarousel" class="carousel slide">
+                          <!-- Carousel items -->
+                          <div id="grid" class="carousel-inner">
+                          </div>
+                          <!-- Carousel nav -->
+                          <a class="carousel-control left hide" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                          <a class="carousel-control right hide" href="#myCarousel" data-slide="next" >&rsaquo;</a>
+                        </div>
                     </div>
-                </div>
+               </div> <!-- end items area -->
+               </div>
            </div>
            <hr>
            
-           <div class="row">
+            <div class="row">
                <div class="span12" style="text-align:center;">
                  <div class="badge badge-info subtitle">2. Donate partially or the remaining to reach the goal</div>
                </div>
-             </div>
-            <div id="donation-form" class="row"><!-- funding area -->                 
-                    <div class="row"> <!-- donate partial amount -->
-                        
-               
-                       <div class="span6">
-                           <div class="span2">
-                               <h3 style="text-align: center; padding-left: 55px;">Raised</h3>
-                               <span id="raised-donation" class="badge badge-warning money pull-right">$0</span>
-                           </div>
-                           <div class="span1" style="padding-left: 20px;padding-top: 60px;">
-                                <h2>of</h2>
-                           </div>
-                           <div class="span2" style="margin-left:0px">
-                               <h3 style="text-align: center; padding-right: 30px;">Goal</h3>
-                               <span id="total-donation" class="badge badge-success money">$188</span>
-                           </div>
-                       </div>
-                       
-                    <!-- donate rest -->
-                        <div class="span3"> 
-                           <div class="row">
-                               <h3>Donate the rest</h3>
-                           </div>
-                           <div class="row">
-                               <div class="span4" style="margin-left: 0px;">
-                                   <span id="remainder-donation" class="badge badge-important money">$188</span>
-                                   <a id="full-button" href="#modal" role="button" data-toggle="modal" class="btn btn-primary donation-button" >Go! »</a>
-                               </div>
-                           </div>
+            </div>
+           <div class="row">
+                <div class="span12"> 
+                    <div class="span5 offset1">
+			            <div class="well" style="padding-left: 40px;padding-bottom: 28px;">
+                            <h1 style="padding-bottom:10px">Campaign:</h1>
+                            <p>Number of people benefited:<span class="people-number badge badge-info" style="margin-left: 10px;">3</span></p>
+                            <p>For this number of months: <span class="month-number badge badge-info" style="margin-left: 18px;">6 months</span></p>
+                            <p>Amount of food: <span class="badge badge-info amount-times" style="margin-left: 94px;">2x</span></p>
+                         </div>
+                   </div>
+                   <div class="span5">             
+                       <div id="donation-form" class="well"  style="padding-left: 40px;"><!-- funding area -->    
+                           <h1 style="padding-bottom: 10px">Donation:</h1>             
+                           <div class="row"> <!-- donate partial amount -->
+                               <div class="span2">
+                                   <div class="row">
+                                       <div class="span5">
+                                		   <p>Currently Raised:</p> 
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span5">
+                                            <span id="raised-donation" class="badge badge-warning money">$0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span2">          
+                                    <div class="row">
+                                        <div class="span5">
+                                    		<p>Campaign Goal:</p> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span5">
+                                            <span id="total-donation" class="badge badge-success money">...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <!-- donate rest 
+                                    <div class="span3"> 
+                                       <div class="row">
+                                           <h3>Donate the rest</h3>
+                                       </div>
+                                       <div class="row">
+                                           <div class="span4" style="margin-left: 0px;">
+                                               <span id="remainder-donation" class="badge badge-important money">$188</span>
+                                               <a id="full-button" href="#modal" role="button" data-toggle="modal" class="btn btn-primary donation-button" >Go! »</a>
+                                           </div>
+                                       </div>
+                                    </div>
+                                end donate rest -->
                         </div>
-                    <!-- end donate rest -->
-                       <div class="span3" style="padding-left: 5px;"> 
-                           <div class="row" style="text-align: center;">
-                               <h3>Donate partially</h3>
-                           </div>
-                           <div class="row" style="width: 295px;padding-left: -4px;">
+                   </div>     
+                </div>
+           </div>
+           <div class="row">
+               <div class="span12">                  
+                   <div class="span8 offset1"> 
+                       <div class="row">
+                           <div class="span8 offset1">
                                <form id="partial-donation-form" class="form-horizontal well" novalidate="novalidate">
                                    <fieldset>
-                                       <div class="control-group success" style="margin-bottom:0px;margin-top: -3px;">
+                                       <div class="control-group success" style="">
                                            <label class="control-label dollar-sign" for="partial-donation">$</label>
-                                           <div class="controls" style="margin-left:30px;">
-                                                <input type="text" class="input-medium valid" name="donation" id="partial-donation">
-                                                <a id="partial-button" href="#" role="button" class="btn btn-primary donation-button">Go! »</a><label for="partial-donation" class="help-inline error" style=""></label>
+                                           <div class="controls">
+                                                <input type="text" class="input-large valid" name="donation" id="partial-donation">
+                                                <a id="partial-button" href="#" role="button" class="btn btn-primary donation-button">Donate! »</a><label for="partial-donation" class="help-inline error" style=""></label>
                                            </div>
                                        </div>
                                    </fieldset>
                                </form>
                             </div>
                         </div>
-                    <!-- end donation partial amount -->
-               </div><!-- end funding area -->
-            </div>
-           <hr>
-           
-           <div class="row">
-               <div class="span12" style="text-align:center;">
-                 <div class="badge badge-info subtitle" style="background-color: #9954bb">We will buy these food items and feed <span class="people-number"></span> people for <span class="month-number"></span></div>
-               </div>
-             </div>
-            <div class="row">
-               <div class="span10 offset1"><!-- items area -->
-                    <hr>
-                    <div class="row pad20l"><!-- grid -->
-                        <ul id="grid" class="thumbnails">
-                            
-                        </ul>
                     </div>
-               </div> <!-- end items area -->
+               </div>
            </div>
-
            <hr>
-
            <footer>
              <p>&copy; People Feed People 2013</p>
            </footer>

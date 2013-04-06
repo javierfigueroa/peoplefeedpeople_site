@@ -12,7 +12,7 @@ h2.center {
 }
 
 #peoples img {
-    width: 34%;
+    width: 52%;
 }
 
 .money {
@@ -28,22 +28,20 @@ h2.center {
 }
 
 .dollar-sign {
-    padding-top: 11px !important;
-    font-size: 50px;
-    height: 50px;
-    width: 20px !important;
+    padding-top: 25px !important;
+    font-size: 74px;
 }
 
 #partial-donation {
-    height:40px; 
-    font-size:35px;
+    height: 64px;
+    font-size: 50px;
     text-align: right;
     margin-bottom: 4px;
 }
 
 #partial-donation-form {
-    height: 45px;
-    padding: 10px;
+    height: 88px;
+    padding-top: 26px;
 }
 
 #full-button {
@@ -76,6 +74,7 @@ h2.center {
     font-size: 20px;
     padding: 20px;
     background-color: #007fff;
+    margin-bottom: 20px;
 }
 
 label.error {
@@ -95,19 +94,16 @@ label.number {
     background: transparent;
 }
 
-.row.center {
-    margin: 0 auto;
-}
-
 .times {
-    font-size: 45px;
-    padding-top: 25px;
-    min-height: 45px;
+    font-size: 32px;
+    padding-top: 15px;
+    min-height: 30px;
+    margin: 10px;
 }
 
 /*the slider background*/
 .ui-slider {
-    width: 180px;
+    width: 120px;
     /*    background: #ef2929; */
     height:17px !important;
     background:url(/img/slider-bg-barv.png) !important;

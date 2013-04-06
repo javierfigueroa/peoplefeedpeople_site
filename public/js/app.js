@@ -7,6 +7,7 @@ var processing = false;
 
 $(function() {
     //Load templates
+    $('.carousel').carousel();
     $.Mustache.load('./tpl/templates.tpl.htm').done(function () {
         main();
     });
@@ -20,20 +21,17 @@ function main() {
     setCampaignContent();
     setWizard();
     setPaymentProcess();
-    
-    //Attach donation button event
-    $(".donation-button").click(function() {
+
+    //partial donation form validation
+    $("#partial-button").click(function() {
         //save button id to wizard
-        var wizard = $('#rootwizard');
+        var wizard = $('#rootwizard'),
+            form = $("#partial-donation-form"),
+		    valid = form.valid();
+		    
         wizard.data("bootstrapWizard").first();
         wizard.data("button", this.id);
         clicky.log('#'+this.id,'Donation button clicked');
-    });
-    
-    //partial donation form validation
-    $("#partial-button").click(function() {
-        var form = $("#partial-donation-form"),
-		    valid = form.valid();
         valid && form.submit();
         return false;
     });
@@ -76,11 +74,11 @@ function main() {
     }else{ // slider-amount
         $("#amount-label").text(value+"x");
         //change the x value in products    
-        $(".times").text(value+"x");
+        $(".amount-times").text(value+"x");
     }
     
     $("#total-donation").text("...");
-    $("#remainder-donation").text("...");
+    $("#partial-donation").val("");
     
     ga('send', 'event', '#'+id, 'moved', 'slider moved', value);
     clicky.log('#'+id+'/'+value,'Slider moved');
@@ -141,6 +139,7 @@ function setGridContent() {
             
             donation = sum += item.price;
         }
+        $('#grid > :first-child').addClass("active");
     });
 }
 
@@ -387,7 +386,7 @@ function setCampaignContent() {
             
         $("#total-donation").text("$" + total);
         $("#raised-donation").text("$" + raised);
-        $("#remainder-donation").text("$" + remainder);
+        $("#partial-donation").val(remainder);
         $("#contributions").text(campaign.stats.number_of_contributions);
         
         $("#partial-donation-form").validate({

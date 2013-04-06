@@ -1,13 +1,9 @@
 <script id="grid-item" type="text/html">
-<li class="span2">
-    <div class="thumbnail">
-        <a href="{{url}}" target="_blank" onclick="clicky.log('#image/{{name}}','Clicked product'); return false;">
-            <img data-src="holder.js/160x120" alt="160x120" style="width: auto; height: 140px;" src="{{image}}">
-        </a>
+    <div class="item thumbnail">
+        <span class="label label-info times amount-times">{{times}}</span>
+        <img data-src="holder.js/160x120" alt="160x120" style="width: auto; height: 140px; margin: 0 auto;" src="{{image}}">
         <p>{{name}}</p>
-        <span class="label label-info times">{{times}}</span>
     </div>
-</li>
 </script>
 <script id="campaign-tilted" type="text/html">
 <div class="succces-modal-body">
