@@ -1,8 +1,15 @@
 <script id="grid-item" type="text/html">
     <div class="item thumbnail">
-        <span class="label label-info times amount-times">{{times}}</span>
-        <img data-src="holder.js/160x120" alt="160x120" style="width: auto; height: 140px; margin: 0 auto;" src="{{image}}">
-        <h5 style="padding:10px;">{{name}}</h5>
+        <div class="row">
+            <div class="span2">
+                <img data-src="holder.js/160x120" alt="{{name}}" style="width: auto; height: 140px; margin: 0 auto;" src="{{image}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="span2">
+                <span class="label label-info times amount-times">{{times}}</span>
+            </div>
+        </div>
     </div>
 </script>
 <script id="campaign-tilted" type="text/html">

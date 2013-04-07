@@ -2,6 +2,10 @@
     padding-top: 80px;
 }
 
+a {
+    text-decoration: none;
+}
+
 h2.center {
     text-align: center;
 }
@@ -29,20 +33,17 @@ h2.center {
 
 .dollar-sign {
     padding-top: 25px !important;
-    font-size: 74px;
-    width: 30px !important;
+    font-size: 40px;
+    width: 20px !important;
+    color: #fff !important;
 }
 
 #partial-donation {
-    height: 64px;
+    height: 50px;
     font-size: 50px;
     text-align: right;
     margin-bottom: 4px;
-}
-
-#partial-donation-form {
-    padding-top: 30px;
-    padding-left: 30px;
+    width: 130px;
 }
 
 #full-button {
@@ -51,23 +52,41 @@ h2.center {
     top: -28px;
 }
 
+#partial-donation-form .controls label {
+    width: 150px;
+}
+
 .hero-unit h1 {
     margin-bottom: 10px;
 }
 
 .donation-button {
     margin-left: 10px;
+    width: 100%; 
+    margin: 0;
 }
 
 .thumbnail {
     text-align: center;
-    border: 2px solid #3fb618;
-    height: 300px;
+    height: 205px;
     vertical-align: middle;
+    padding: 10px;
+    padding-left: 30px;
+    background-color: #fff;
+    border: 1px solid #2C3E50;
+}
+
+.thumbnail img {
+    border: 0px solid #34495E;
 }
 
 .well {
-    border: 2px solid #3fb618;
+    background-color: #2C3E50;
+    color: #fff;
+}
+
+.thumbnail .times {
+    position: relative;
 }
 
 .pad20l {
@@ -81,7 +100,7 @@ h2.center {
 .subtitle {
     font-size: 20px;
     padding: 20px;
-    background-color: #007fff;
+    background-color: #2ECC71;
     margin-bottom: 20px;
 }
 
@@ -109,34 +128,11 @@ label.number {
     margin: 10px;
 }
 
-/*the slider background*/
 .ui-slider {
     width: 120px;
-    /*    background: #ef2929; */
-    height:17px !important;
-    background:url(/img/slider-bg-barv.png) !important;
-    position:relative !important;
-    margin:0 !important;
-    padding:0px !important;
-    border: 0px !important;
+}
+
+.tooltip-inner {
+    width: 110px;
 }
  
-/*Style for the slider button*/
-.ui-slider-handle {
-    width:40px !important;
-    height:40px !important;
-    position:absolute !important;
-    top:-14px !important;
-    margin-left:-12px !important;
-    z-index:200 !important;
-    background:url(/img/slider-handle.png) !important;
-}
- 
-/*This is the fill bar colour*/
-.ui-widget-header {
-    background:url(/img/slider-fill-bar.png) no-repeat left !important;
-    height:14px !important;
-    left:1px !important;
-    top:1px !important;
-    position:absolute !important;
-}

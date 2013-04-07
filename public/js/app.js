@@ -45,6 +45,10 @@ function main() {
           $("#full-button").trigger("click");
       }
     });
+    
+    
+    // Init tooltips
+    $("[data-toggle=tooltip]").tooltip("show");
  }
  
  function setupSlider() {
