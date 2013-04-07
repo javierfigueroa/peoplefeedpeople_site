@@ -78,7 +78,7 @@ function main() {
     }
     
     $("#total-donation").text("...");
-    $("#partial-donation").val("");
+    $("#partial-donation").val("...");
     
     ga('send', 'event', '#'+id, 'moved', 'slider moved', value);
     clicky.log('#'+id+'/'+value,'Slider moved');

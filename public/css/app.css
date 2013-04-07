@@ -12,7 +12,7 @@ h2.center {
 }
 
 #peoples img {
-    width: 52%;
+    width: 70%;
 }
 
 .money {
@@ -30,6 +30,7 @@ h2.center {
 .dollar-sign {
     padding-top: 25px !important;
     font-size: 74px;
+    width: 30px !important;
 }
 
 #partial-donation {
@@ -40,8 +41,8 @@ h2.center {
 }
 
 #partial-donation-form {
-    height: 88px;
-    padding-top: 26px;
+    padding-top: 30px;
+    padding-left: 30px;
 }
 
 #full-button {
@@ -60,6 +61,13 @@ h2.center {
 
 .thumbnail {
     text-align: center;
+    border: 2px solid #3fb618;
+    height: 300px;
+    vertical-align: middle;
+}
+
+.well {
+    border: 2px solid #3fb618;
 }
 
 .pad20l {
@@ -82,14 +90,14 @@ label.error {
 }
 
 .number-wrap {
-    padding-top: 58px;
-    padding-bottom: 25px;
+    padding-top: 72px;
+    padding-bottom: 40px;
 }
 
 label.number {
     margin: 0;
     padding: 0;
-    font-size: 87px;
+    font-size: 100px;
     vertical-align: baseline;
     background: transparent;
 }
