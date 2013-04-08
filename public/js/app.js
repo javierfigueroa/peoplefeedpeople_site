@@ -7,7 +7,6 @@ var processing = false;
 
 $(function() {
     //Load templates
-    $('.carousel').carousel();
     $.Mustache.load('./tpl/templates.tpl.htm').done(function () {
         main();
     });
@@ -31,7 +30,6 @@ function main() {
 		    
         wizard.data("bootstrapWizard").first();
         wizard.data("button", this.id);
-        clicky.log('#'+this.id,'Donation button clicked');
         valid && form.submit();
         return false;
     });
@@ -46,9 +44,9 @@ function main() {
       }
     });
     
-    
     // Init tooltips
     $("[data-toggle=tooltip]").tooltip("show");
+    $('.carousel').carousel();
  }
  
  function setupSlider() {
@@ -66,26 +64,21 @@ function main() {
  
  function sliderMoved(event, ui) {
     var value = ui.value,
-        id = this.id;
+        id = this.id,
+        metadata = getPeopleMetadata(value);
     
     if (id === "slider-people") {        
-        var metadata = getPeopleMetadata(value);
         //set people image when slider moves
-        setPeopleImage(metadata);
-        //log events
+        $("#slider .ui-slider-range").css("background", metadata.color);
+        $('#people-image').attr("src", metadata.image);
     }else if (id === "slider-months") {
-        $("#months-label").text(value === 1 ? value : (value-1)*6);
+        $("#months-label").text(value === 1 ? value : (value-1) * 6);
     }else{ // slider-amount
-        $("#amount-label").text(value+"x");
-        //change the x value in products    
         $(".amount-times").text(value+"x");
     }
     
     $("#total-donation").text("...");
     $("#partial-donation").val("...");
-    
-    ga('send', 'event', '#'+id, 'moved', 'slider moved', value);
-    clicky.log('#'+id+'/'+value,'Slider moved');
 }
 
 function getPeopleMetadata(value) {
@@ -99,32 +92,8 @@ function getPeopleMetadata(value) {
     }
 }
 
-function setPeopleImage(params) {
-    var sliderRange = $("#slider .ui-slider-range"),
-        image = params.image,
-        times = params.times;
-        
-    sliderRange.css("background", params.color);
-
-    $('#people-image').attr("src", image);
-    var altImage = $('#people-image-alt');
-    
-    if (times > 1 && altImage.length > 0) {
-        altImage.attr("src", image);
-    }else if(times > 1 && altImage.length == 0){
-        $('#peoples').append($("<img />", { 
-            id: "people-image-alt",
-            src: image
-        }));
-    }else{
-        altImage.remove();
-    }
-}
- 
 function setGridContent() {
     //set donation form fixed
-    // $('#donation-form').scrollToFixed({ marginTop: 50});
-    $("#grid").empty();
     $.getJSON("json/products.json", function(response) {
         var items = products = response.products,
             itemsLength = items.length,
@@ -143,6 +112,7 @@ function setGridContent() {
             
             donation = sum += item.price;
         }
+        
         $('#grid > :first-child').addClass("active");
     });
 }
@@ -310,9 +280,7 @@ function setPaymentProcess() {
             processing = true;  
             $('#rootwizard .finish').toggleClass("disabled");
             $.bootstrapGrowl("Starting transaction...", growl);
-            //log
-         clicky.log('#Submitting-'+crowdtilt.campaign.tilt_amount+"-Key-"+crowdtilt.campaign.metadata,
-                    'Submitting donation');
+            
     		crowdtilt.setUser(crowdtilt.userData).then(function() {
     	        $.bootstrapGrowl("Processing your payment information...", growl);
     		    crowdtilt.setCreditCard(crowdtilt.user.id, crowdtilt.ccData).then(function(){
@@ -338,8 +306,6 @@ function paymentProcessed(payment){
     //Check if campaign was tilted		            
     var campaign = payment.campaign;
     if (campaign.stats.tilt_percent === 100) { 
-        //log
-        clicky.log('#Tilted-'+campaign.tilt_amount+"-People-"+campaign.metadata.people,'Campaign tilted');
         //Show tilted message
         $('#success-modal').mustache("campaign-tilted");
         crowdtilt.createCampaign({
@@ -385,8 +351,6 @@ function setCampaignContent() {
             raised: raised,
             remainder: remainder
         };
-        
-        ga('send', 'event', 'campaign', 'received', JSON.stringify(crowdtilt.campaignData), 1); 
             
         $("#total-donation").text("$" + total);
         $("#raised-donation").text("$" + raised);
