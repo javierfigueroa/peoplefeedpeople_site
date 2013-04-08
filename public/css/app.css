@@ -73,20 +73,12 @@ h2.center {
     padding: 10px;
     padding-left: 30px;
     background-color: #fff;
-    border: 1px solid #2C3E50;
-}
-
-.thumbnail img {
-    border: 0px solid #34495E;
+    border: 0px solid #2C3E50;
 }
 
 .well {
     background-color: #2C3E50;
     color: #fff;
-}
-
-.thumbnail .times {
-    position: relative;
 }
 
 .pad20l {
@@ -121,12 +113,14 @@ label.number {
     background: transparent;
 }
 
-.times {
+.thumbnail .times {
+    background-color: #9B59B6;
     font-size: 32px;
     padding-top: 15px;
     min-height: 30px;
     margin: 10px;
 }
+
 
 .ui-slider {
     width: 120px;
@@ -136,3 +130,10 @@ label.number {
     width: 110px;
 }
  
+.badge-warning.money {
+    background-color: #E74C3C;
+}
+
+.badge-success.money {
+    background-color: #2ECC71;
+}
